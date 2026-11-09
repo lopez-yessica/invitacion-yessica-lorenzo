@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#3e4a34">
+  <title>Nuestra boda | Yessica &amp; Lorenzo</title>
+  <meta name="description" content="Acompañanos a celebrar nuestra boda el sábado 25 de septiembre de 2027 en Carapeguá, Paraguay.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%233e4a34'/%3E%3Ctext x='50' y='66' font-family='Georgia,serif' font-size='44' fill='%23e2cca0' text-anchor='middle'%3EY%26L%3C/text%3E%3C/svg%3E">
+
+  <!-- Open Graph / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_PY">
+  <meta property="og:site_name" content="Yessica &amp; Lorenzo">
+  <meta property="og:title" content="Yessica &amp; Lorenzo | Nuestra boda">
+  <meta property="og:description" content="Sábado 25 de septiembre de 2027 · Carapeguá, Paraguay. ¡Te esperamos!">
+  <meta property="og:image" content="/img/portada.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sobre verde salvia con sello dorado rodeado de ramas de olivo">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ivory: #faf6ee;
+      --paper: #fffdf9;
+      --cream: #f4eee1;
+      --sage: #7d8a68;
+      --sage-light: #e4e8dc;
+      --sage-dark: #3e4a34;
+      --olive: #5d6749;
+      --gold: #b59850;
+      --gold-light: #e2cca0;
+      --gold-dark: #8c7132;
+      --ink: #2b3026;
+      --ink-soft: #555c4d;
+      --muted: #798070;
+      --border-subtle: #ded8c7;
+      --shadow-soft: 0 12px 36px rgba(43, 48, 38, 0.08);
+      --shadow-deep: 0 24px 50px rgba(43, 48, 38, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--ivory);
+      color: var(--ink);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 20px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient paper grain effect */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(#6d735a12 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.6;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Floating Canvas for Rose Petals / Sparkles */
+    #fxCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* Audio Toggle Bar */
+    .audio-toggle-btn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 1200;
+      background: rgba(255, 253, 249, 0.92);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      padding: 9px 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--sage-dark);
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+    }
+
+    .audio-toggle-btn:hover {
+      background: var(--paper);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      border-color: var(--gold);
+    }
+
+    .audio-icon-pulse {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .audio-playing .audio-icon-pulse {
+      animation: pulse 1.2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.6); opacity: 1; }
+    }
+
+    /* HERO SECTION & INTERACTIVE ENVELOPE */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 18px 50px;
+      position: relative;
+      background: radial-gradient(circle at 50% 30%, #fffdf8 0%, var(--cream) 100%);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-foliage {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      opacity: 0.18;
+      pointer-events: none;
+      color: var(--olive);
+    }
+    .hero-foliage.top-left { top: -20px; left: -30px; transform: rotate(-25deg); }
+    .hero-foliage.bottom-right { bottom: -20px; right: -30px; transform: rotate(155deg); }
+
+    .hero-inner {
+      width: min(100%, 560px);
+      position: relative;
+      z-index: 2;
+    }
+
+    .monogram-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold);
+      background: radial-gradient(circle, #ffffff 60%, #faf5ea 100%);
+      margin-bottom: 18px;
+      color: var(--sage-dark);
+      box-shadow: 0 4px 16px rgba(181, 152, 80, 0.18), inset 0 0 0 3px rgba(255, 255, 255, 0.85);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .monogram-badge svg {
+      width: 48px;
+      height: 48px;
+      display: block;
+    }
+
+    .monogram-badge:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(181, 152, 80, 0.28);
+    }
+
+    .eyebrow {
+      font-family: "Montserrat", sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      margin-bottom: 12px;
+    }
+
+    .quote {
+      font-style: italic;
+      font-size: 22px;
+      max-width: 440px;
+      margin: 0 auto 28px;
+      color: var(--ink-soft);
+      line-height: 1.45;
+    }
+
+    /* ENVELOPE CONTAINER */
+    .envelope-wrap {
+      width: min(88vw, 360px);
+      margin: 10px auto 26px;
+      perspective: 1200px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .envelope {
+      height: 236px;
+      position: relative;
+      background: #6e795c;
+      border-radius: 4px 4px 10px 10px;
+      box-shadow: 0 20px 45px rgba(50, 56, 40, 0.22);
+      overflow: visible;
+      isolation: isolate;
+      transform-style: preserve-3d;
+      transition: transform 0.4s ease;
+    }
+
+    .envelope:hover {
+      transform: translateY(-4px);
+    }
+
+    .envelope-back {
+      position: absolute;
+      inset: 0;
+      background: #5b664a;
+      border-radius: inherit;
+    }
+
+    .envelope-lining {
+      position: absolute;
+      inset: 8px 8px 14px 8px;
+      background: #f2ede1;
+      background-image: radial-gradient(#b8a06e33 1px, transparent 1px);
+      background-size: 10px 10px;
+      border-radius: 2px 2px 8px 8px;
+      opacity: 0.95;
+    }
+
+    /* INVITATION CARD INSIDE */
+    .letter {
+      position: absolute;
+      z-index: 2;
+      left: 6%;
+      width: 88%;
+      height: 200px;
+      bottom: 10px;
+      padding: 16px 12px;
+      background: var(--paper);
+      border: 1px solid #dfd8be;
+      border-radius: 3px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      transition: transform 1s cubic-bezier(0.18, 0.89, 0.32, 1.15), bottom 1s;
+      background-image: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(246,242,231,0.95));
+      border: 1px double var(--gold-light);
+    }
+
+    .letter .card-header-ornament {
+      font-size: 14px;
+      color: var(--gold);
+      margin-bottom: 2px;
+    }
+
+    .letter small {
+      font-family: "Montserrat", sans-serif;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 10px;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .letter .script-hero {
+      font-family: "Great Vibes", cursive;
+      font-size: 38px;
+      color: var(--sage-dark);
+      line-height: 1.1;
+      margin: 2px 0;
+    }
+
+    .letter .divider-mini {
+      color: var(--gold);
+      font-size: 14px;
+      margin: 2px 0 4px;
+    }
+
+    .letter .date {
+      font-family: "Montserrat", sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+    }
+
+    /* FLAP & POCKET */
+    .flap {
+      position: absolute;
+      z-index: 4;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 59%;
+      background: #7d8969;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+      backface-visibility: hidden;
+      box-shadow: inset 0 -3px 6px rgba(0,0,0,0.08);
+    }
+
+    .pocket {
+      position: absolute;
+      z-index: 3;
+      inset: 0;
+      background:
+        linear-gradient(142deg, transparent 49.5%, #5d684c 50%) left / 50% 100% no-repeat,
+        linear-gradient(218deg, transparent 49.5%, #6a7657 50%) right / 50% 100% no-repeat;
+      clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%);
+    }
+
+    /* WAX SEAL */
+    .seal {
+      position: absolute;
+      z-index: 5;
+      top: 48%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at 35% 30%, #e0ce9a, #9c7f3e 70%, #765e2a 100%);
+      color: #fffaf0;
+      border: 2px solid #ecdca8;
+      box-shadow: 0 4px 12px rgba(45, 35, 15, 0.45), inset 0 2px 4px rgba(255,255,255,0.4);
+      font-size: 20px;
+      cursor: pointer;
+      transition: opacity 0.3s, transform 0.4s ease;
+    }
+
+    .seal-monogram {
+      font-family: "Great Vibes", cursive;
+      font-size: 24px;
+      color: #fff9e6;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    /* OPEN STATE */
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .envelope.open .letter {
+      transform: translateY(-135px);
+      bottom: 22px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+    }
+
+    .envelope.open .seal {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.5);
+      pointer-events: none;
+    }
+
+    .tap-hint {
+      color: var(--muted);
+      font-size: 16px;
+      font-style: italic;
+      margin: 10px 0 0;
+      min-height: 24px;
+      transition: color 0.3s ease;
+    }
+
+    /* PRIMARY & SECONDARY BUTTONS */
+    .primary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--sage-dark);
+      color: #ffffff;
+      border: 1px solid #4a573e;
+      padding: 14px 30px;
+      border-radius: 999px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(62, 74, 52, 0.25);
+      transition: all 0.25s ease;
+      margin-top: 20px;
+    }
+
+    .primary-btn:hover {
+      background: #313b29;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(62, 74, 52, 0.32);
+    }
+
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--sage-dark);
+      border: 1px solid var(--sage);
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .secondary-btn:hover {
+      background: var(--sage-dark);
+      color: #ffffff;
+      border-color: var(--sage-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #c7aa61, #9e803a);
+      color: #ffffff !important;
+      border: none;
+      box-shadow: 0 4px 14px rgba(158, 128, 58, 0.3);
+    }
+
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #d4b86e, #8c7132);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(158, 128, 58, 0.4);
+    }
+
+    /* SECTIONS */
+    .section {
+      padding: 85px 20px;
+      position: relative;
+    }
+
+    .section:nth-child(even) {
+      background-color: #f5f0e4;
+      background-image: radial-gradient(#dcd4bf24 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    .content-container {
+      width: min(100%, 780px);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .section-eyebrow {
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .script-title {
+      font-family: "Great Vibes", cursive;
+      font-weight: normal;
+      color: var(--sage-dark);
+      line-height: 1.15;
+    }
+
+    h1.script-title {
+      font-size: clamp(48px, 10vw, 76px);
+      margin: 12px 0 16px;
+    }
+
+    h2 {
+      font-size: clamp(32px, 6vw, 44px);
+      font-weight: 500;
+      margin: 6px 0 24px;
+      color: var(--ink);
+    }
+
+    .ampersand {
+      color: var(--gold);
+      font-style: italic;
+      padding: 0 4px;
+    }
+
+    .flourish {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 20px auto;
+      color: var(--gold);
+      font-size: 18px;
+    }
+    .flourish::before, .flourish::after {
+      content: "";
+      width: 50px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-light), transparent);
+    }
+
+    .date-highlight {
+      font-size: clamp(24px, 5vw, 32px);
+      font-weight: 600;
+      color: var(--sage-dark);
+      margin: 10px 0;
+      letter-spacing: 0.02em;
+    }
+
+    .place-highlight {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      font-family: "Montserrat", sans-serif;
+      letter-spacing: 0.15em;
+    }
+
+    /* COUNTDOWN */
+    .countdown-wrap {
+      margin: 35px auto 30px;
+      max-width: 540px;
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .count-card {
+      background: var(--paper);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 18px 8px 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+      position: relative;
+    }
+
+    .count-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      border-radius: 999px;
+    }
+
+    .count-number {
+      font-size: clamp(30px, 6vw, 44px);
+      font-weight: 600;
+      line-height: 1;
+      color: var(--sage-dark);
+      font-family: "Cormorant Garamond", serif;
+    }
+
+    .count-label {
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 6px;
+      display: block;
+    }
+
+    .calendar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    /* LOCATIONS / EVENT CARDS */
+    .locations-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 36px;
+      text-align: left;
+    }
+
+    .location-card {
+      background: var(--paper);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 34px 26px 30px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .location-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-deep);
+    }
+
+    .location-badge {
+      position: absolute;
+      top: -14px;
+      left: 26px;
+      background: var(--sage-dark);
+      color: #fff;
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+
+    .location-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--sage-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sage-dark);
+      margin-bottom: 18px;
+    }
+
+    .location-card h3 {
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--sage-dark);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .location-time {
+      font-family: "Montserrat", sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gold-dark);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .location-address {
+      font-size: 18px;
+      color: var(--ink-soft);
+      margin-bottom: 24px;
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+
+    .location-card-footer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    /* ITINERARY TIMELINE */
+    .timeline-container {
+      max-width: 520px;
+      margin: 40px auto 0;
+      text-align: left;
+      position: relative;
+    }
+
+    .timeline-container::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      bottom: 20px;
+      left: 22px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold), var(--sage), var(--border-subtle));
+    }
+
+    .timeline-row {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 32px;
+      position: relative;
+    }
+
+    .timeline-dot {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--paper);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--sage-dark);
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      z-index: 2;
+    }
+
+    .timeline-info {
+      padding-left: 20px;
+      padding-top: 4px;
+    }
+
+    .timeline-time {
+      font-family: "Montserrat", sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--gold-dark);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .timeline-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--sage-dark);
+      line-height: 1.25;
+    }
+
+    .timeline-desc {
+      font-size: 17px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* IMPORTANT NOTES & DRESS CODE */
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 36px;
+      text-align: center;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .note-card {
+      background: var(--paper);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 28px 18px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .note-icon {
+      font-size: 28px;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .note-card h4 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--sage-dark);
+      margin-bottom: 8px;
+    }
+
+    .note-card p {
+      font-size: 17px;
+      color: var(--ink-soft);
+      line-height: 1.45;
+    }
+
+    /* GIFT ACCORDION / TRANSFER CARD */
+    .gift-box {
+      margin-top: 36px;
+      background: linear-gradient(135deg, #fffdf8, #fbf7ee);
+      border: 1.5px solid var(--gold-light);
+      border-radius: 18px;
+      padding: 30px 24px;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 10px 30px rgba(181, 152, 80, 0.08);
+      position: relative;
+    }
+
+    .gift-box::before {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border: 1px dashed rgba(181, 152, 80, 0.4);
+      border-radius: 13px;
+      pointer-events: none;
+    }
+
+    .gift-box-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .bank-details {
+      display: none;
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-subtle);
+      text-align: left;
+      font-size: 16px;
+      background: #faf8f2;
+      border-radius: 12px;
+      padding: 22px;
+      border: 1px solid rgba(181, 152, 80, 0.25);
+    }
+
+    .bank-details.visible {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .bank-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(125, 138, 104, 0.2);
+      gap: 12px;
+      font-size: 17px;
+    }
+
+    .bank-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .bank-label {
+      font-family: "Montserrat", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      font-weight: 600;
+    }
+
+    .bank-value {
+      font-family: "Montserrat", sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      text-align: right;
+    }
+
+    .bank-copy-row {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* TOAST NOTIFICATION */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--sage-dark);
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    .toast-msg.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 65px 20px 80px;
+      background: var(--sage-dark);
+      color: var(--ivory);
+      text-align: center;
+      position: relative;
+    }
+
+    footer .script-footer {
+      font-family: "Great Vibes", cursive;
+      font-size: 52px;
+      color: #fff9e6;
+      margin-bottom: 8px;
+    }
+
+    .footer-date {
+      font-family: "Montserrat", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 18px;
+    }
+
+    .footer-note {
+      font-size: 18px;
+      font-style: italic;
+      color: #d7decb;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 768px) {
+      .section {
+        padding: 60px 16px;
+      }
+      .locations-grid {
+        grid-template-columns: 1fr;
+      }
+      .notes-grid {
+        grid-template-columns: 1fr;
+      }
+      .envelope {
+        height: 215px;
+      }
+      .envelope.open .letter {
+        transform: translateY(-120px);
+      }
+      .count-number {
+        font-size: 28px;
+      }
+      .audio-toggle-btn {
+        top: 12px;
+        right: 12px;
+        padding: 7px 14px;
+        font-size: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* RSVP / CONFIRMACION */
+    .rsvp-card {
+      max-width: 560px;
+      margin: 10px auto 0;
+      background: var(--paper);
+      border: 1px solid var(--border-subtle);
+      border-radius: 22px;
+      padding: 38px 28px;
+      box-shadow: var(--shadow-soft);
+      text-align: center;
+    }
+    .rsvp-card p { color: var(--ink-soft); font-size: 18px; }
+    .rsvp-deadline { margin-top: 10px; font-size: 15px !important; color: var(--muted) !important; font-style: italic; }
+    .rsvp-form-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; text-align: left; }
+    .rsvp-field { display: flex; flex-direction: column; gap: 6px; }
+    .rsvp-field.full { grid-column: 1 / -1; }
+    .rsvp-field label { font-family: "Montserrat", sans-serif; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--sage-dark); font-weight: 600; }
+    .rsvp-field input { width: 100%; min-height: 46px; padding: 11px 13px; border: 1px solid var(--border-subtle); border-radius: 10px; background: #fffefa; color: var(--ink); font-family: "Montserrat", sans-serif; font-size: 14px; }
+    .rsvp-field input:focus { outline: 2px solid var(--sage); outline-offset: 1px; }
+    .rsvp-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 26px;
+    }
+    .rsvp-actions button { text-decoration: none; margin-top: 0; min-width: 190px; }
+    .rsvp-decline {
+      padding: 14px 30px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .rsvp-status { margin-top: 18px !important; font-family: "Montserrat", sans-serif; font-size: 13px !important; line-height: 1.6; color: var(--sage-dark) !important; }
+    .rsvp-status.error { color: #9b3028 !important; }
+    .rsvp-actions button:disabled { opacity: .6; cursor: wait; }
+    /* RSVP cerrado (después de la fecha límite) */
+    .rsvp-card.is-closed .rsvp-actions button:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+    .rsvp-card.is-closed .rsvp-field input { opacity: .6; cursor: not-allowed; }
+    .rsvp-closed {
+      margin-top: 24px;
+      padding: 26px 22px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      background: #fffefa;
+    }
+    .rsvp-closed[hidden] { display: none; }
+    .rsvp-closed p { margin-top: 10px; line-height: 1.6; }
+    .rsvp-closed .decline-signature { margin-top: 18px !important; }
+    @media (max-width: 480px) {
+      .rsvp-form-fields { grid-template-columns: 1fr; }
+      .rsvp-field.full { grid-column: auto; }
+      .rsvp-actions button { width: 100%; }
+      .rsvp-card { padding: 30px 18px; }
+    }
+
+    /* PANTALLA DE AGRADECIMIENTO (RECHAZO) */
+    .decline-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 18px;
+      overflow-y: auto;
+      background: radial-gradient(circle at 50% 30%, #fffdf8 0%, var(--cream) 100%);
+      text-align: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .decline-screen.is-open { opacity: 1; visibility: visible; }
+    body.decline-open { overflow: hidden; }
+    .decline-card {
+      width: min(100%, 560px);
+      background: var(--paper);
+      border: 1px solid var(--border-subtle);
+      border-radius: 22px;
+      padding: 44px 30px 36px;
+      box-shadow: var(--shadow-soft);
+      transform: translateY(16px);
+      transition: transform 0.6s ease;
+    }
+    .decline-screen.is-open .decline-card { transform: none; }
+    .decline-heart { font-size: 34px; line-height: 1; margin-bottom: 14px; }
+    .decline-card h2 { margin-bottom: 6px; }
+    .decline-card p { color: var(--ink-soft); font-size: 18px; margin-top: 16px; line-height: 1.6; }
+    .decline-signature { margin-top: 26px !important; font-style: italic; }
+    .decline-signature strong {
+      display: block;
+      margin-top: 4px;
+      font-style: normal;
+      font-size: 24px;
+      color: var(--sage-dark);
+    }
+    .decline-signature span { color: var(--gold); }
+    .decline-back { margin-top: 30px; }
+
+    /* ====== MEJORAS ====== */
+    .hero-branch {
+      position: absolute;
+      width: clamp(220px, 46vw, 460px);
+      height: auto;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+      opacity: 0.9;
+      z-index: 1;
+      user-select: none;
+    }
+    .hero-branch.top-left { top: 0; left: 0; }
+    .hero-branch.bottom-right { bottom: 0; right: 0; transform: rotate(180deg); }
+    .hero-inner { animation: heroIn 1.2s ease both; }
+    @keyframes heroIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+    .scroll-cue {
+      display: block;
+      margin: 26px auto 0;
+      width: 22px; height: 36px;
+      border: 1.5px solid var(--sage);
+      border-radius: 999px;
+      position: relative;
+      opacity: .7;
+    }
+    .scroll-cue::after {
+      content: ""; position: absolute; left: 50%; top: 7px;
+      width: 4px; height: 7px; margin-left: -2px;
+      border-radius: 4px; background: var(--gold);
+      animation: cue 1.8s ease-in-out infinite;
+    }
+    @keyframes cue { 0% { opacity: 0; transform: translateY(0); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(12px); } }
+
+    /* Aparición suave al hacer scroll */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s ease, transform .9s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+    .no-js .reveal { opacity: 1; transform: none; }
+
+    /* Foco visible para teclado */
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+    .envelope-wrap:focus-visible { outline-offset: 8px; border-radius: 12px; }
+
+    .secondary-btn svg, .primary-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* Navegación rápida flotante */
+    .quick-nav {
+      position: fixed;
+      left: 50%;
+      bottom: max(14px, env(safe-area-inset-bottom));
+      transform: translate(-50%, 140%);
+      z-index: 1100;
+      display: flex;
+      gap: 2px;
+      padding: 6px;
+      background: rgba(255, 253, 249, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(43, 48, 38, 0.14);
+      transition: transform .45s cubic-bezier(.2,.8,.2,1);
+      max-width: calc(100vw - 20px);
+    }
+    .quick-nav.is-shown { transform: translate(-50%, 0); }
+    .quick-nav a {
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      padding: 9px 13px;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: background .25s, color .25s;
+    }
+    .quick-nav a:hover { color: var(--sage-dark); background: var(--sage-light); }
+    .quick-nav a.is-active { background: var(--sage-dark); color: #fff; }
+    @media (max-width: 480px) {
+      .quick-nav a { padding: 9px 9px; font-size: 10px; letter-spacing: .04em; }
+    }
+    body.decline-open .quick-nav { transform: translate(-50%, 140%); }
+    .toast-msg { bottom: 84px; }
+
+    .countdown-done {
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(36px, 8vw, 52px);
+      color: var(--sage-dark);
+    }
+
+    .share-row { margin-top: 30px; display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+    footer .secondary-btn { color: var(--gold-light); border-color: rgba(226, 204, 160, .5); }
+    footer .secondary-btn:hover { background: var(--gold-light); color: var(--sage-dark); border-color: var(--gold-light); }
+    footer .monogram-badge { margin-bottom: 14px; }
+
+    .rsvp-remembered {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: var(--sage-light);
+      color: var(--sage-dark);
+      font-family: "Montserrat", sans-serif;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .rsvp-remembered[hidden] { display: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      .scroll-cue::after { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particle / Rose Petal Canvas -->
+  <canvas id="fxCanvas" aria-hidden="true"></canvas>
+
+  <!-- Floating Audio Ambience Toggle -->
+  <button class="audio-toggle-btn" id="audioToggleBtn" type="button" aria-label="Activar o pausar la música de fondo" aria-pressed="false">
+    <span class="audio-icon-pulse" aria-hidden="true"></span>
+    <span id="audioText">Activar música ♪</span>
+  </button>
+
+  <!-- HERO SECTION WITH INTERACTIVE ENVELOPE -->
+  <header class="hero" id="inicio">
+    <!-- Ramas decorativas -->
+    <img class="hero-branch top-left" src="/img/ramas.png" alt="" aria-hidden="true" width="460" height="460" fetchpriority="high">
+    <img class="hero-branch bottom-right" src="/img/ramas.png" alt="" aria-hidden="true" width="460" height="460">
+
+    <div class="hero-inner">
+      <div class="monogram-badge" aria-label="Monograma Yessica &amp; Lorenzo">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="46" stroke="#b59850" stroke-width="2" stroke-opacity="0.85" />
+          <circle cx="50" cy="50" r="41" stroke="#b59850" stroke-width="0.8" stroke-dasharray="2 3" stroke-opacity="0.6" />
+          <!-- Y letter -->
+          <text x="35" y="44" font-family="'Cormorant Garamond', Georgia, serif" font-size="28" font-weight="600" fill="#3e4a34" text-anchor="middle">Y</text>
+          <!-- Ampersand -->
+          <text x="58" y="46" font-family="'Cormorant Garamond', Georgia, serif" font-size="21" font-style="italic" fill="#b59850" text-anchor="middle">&amp;</text>
+          <!-- L letter -->
+          <text x="50" y="74" font-family="'Cormorant Garamond', Georgia, serif" font-size="30" font-weight="600" fill="#3e4a34" text-anchor="middle">L</text>
+        </svg>
+      </div>
+      <p class="eyebrow">Nuestra Boda</p>
+      <p class="quote">“Dos almas, un mismo camino y una vida entera para amarse.”</p>
+
+      <!-- 3D Realistic Envelope -->
+      <div class="envelope-wrap" id="envelopeWrap" role="button" tabindex="0" aria-label="Abrir invitación" aria-expanded="false" aria-controls="detalles">
+        <div class="envelope" id="envelope">
+          <div class="envelope-back"></div>
+          <div class="envelope-lining"></div>
+          
+          <!-- Inner Wedding Card -->
+          <div class="letter">
+            <span class="card-header-ornament">✦</span>
+            <small>Invitación especial</small>
+            <div class="script-hero">Yessica <span class="ampersand">&</span> Lorenzo</div>
+            <div class="divider-mini">♥</div>
+            <div class="date">25 · Septiembre · 2027</div>
+          </div>
+
+          <div class="flap"></div>
+          <div class="pocket"></div>
+          <div class="seal" id="sealIcon" title="Toca para abrir">
+            <span class="seal-monogram">Y&amp;L</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="tap-hint" id="tapHint">Tocá el sobre o el sello para abrir nuestra invitación</p>
+      <button class="primary-btn" id="openButton" type="button">
+        <span>Abrir invitación</span>
+        <span aria-hidden="true">♥</span>
+      </button>
+      <a class="scroll-cue" href="#detalles" aria-label="Ir a los detalles de la boda"></a>
+    </div>
+  </header>
+
+  <main>
+    <!-- MAIN INVITATION DETAILS -->
+    <section class="section" id="detalles">
+      <div class="content-container reveal">
+        <p class="section-eyebrow">Con la bendición de nuestras familias</p>
+        <h1 class="script-title">Yessica <span class="ampersand">&</span> Lorenzo</h1>
+        <p style="max-width: 560px; margin: 0 auto; font-size: 22px; color: var(--ink-soft);">
+          Tenemos el inmenso honor de invitarte a celebrar el comienzo de nuestra historia para siempre.
+        </p>
+
+        <div class="flourish" aria-hidden="true">✦ &nbsp; ♥ &nbsp; ✦</div>
+
+        <p class="date-highlight">Sábado, 25 de septiembre de 2027</p>
+        <p class="place-highlight">Carapeguá, Paraguay</p>
+
+        <!-- COUNTDOWN -->
+        <div class="countdown-wrap" id="countdownWrap" role="timer" aria-label="Cuenta regresiva para la boda">
+          <div class="countdown-grid">
+            <div class="count-card">
+              <span class="count-number" id="days">—</span>
+              <span class="count-label">Días</span>
+            </div>
+            <div class="count-card">
+              <span class="count-number" id="hours">—</span>
+              <span class="count-label">Horas</span>
+            </div>
+            <div class="count-card">
+              <span class="count-number" id="minutes">—</span>
+              <span class="count-label">Minutos</span>
+            </div>
+            <div class="count-card">
+              <span class="count-number" id="seconds">—</span>
+              <span class="count-label">Segundos</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CALENDAR INTEGRATIONS -->
+        <div class="calendar-actions">
+          <a class="secondary-btn" id="googleCalBtn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg><span>Agendar en Google Calendar</span>
+          </a>
+          <button class="secondary-btn" id="iCalBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg><span>Apple / Outlook (.ics)</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATIONS / CEREMONY & RECEPTION -->
+    <section class="section" id="lugares">
+      <div class="content-container reveal">
+        <p class="section-eyebrow">Dónde &amp; Cuándo</p>
+        <h2>La Ceremonia &amp; La Recepción</h2>
+        <div class="flourish" aria-hidden="true">❦</div>
+
+        <div class="locations-grid">
+          <!-- Ceremonia -->
+          <article class="location-card">
+            <span class="location-badge">Ceremonia</span>
+            <div class="location-icon-wrap" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v20M2 12h20" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Ceremonia Religiosa</h3>
+            <div class="location-time">
+              <span>🕒 19:00 hs (Puntual)</span>
+            </div>
+            <p class="location-address">
+              <strong>Iglesia Inmaculada Concepción de María</strong><br>
+              Carapeguá, Paraguay
+            </p>
+            <div class="location-card-footer">
+              <a class="secondary-btn" href="https://waze.com/ul?q=Iglesia%20Inmaculada%20Concepcion%20Carapegua&navigate=yes" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-8-8 18-2-8-8-2Z"/></svg> Waze
+              </a>
+              <a class="secondary-btn" href="https://www.google.com/maps/search/?api=1&query=Iglesia+Inmaculada+Concepcion+de+Maria+Carapegua+Paraguay" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg> Google Maps
+              </a>
+              <button class="secondary-btn copy-btn" data-copy="Iglesia Inmaculada Concepción de María, Carapeguá, Paraguay" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg> Copiar
+              </button>
+            </div>
+          </article>
+
+          <!-- Recepción -->
+          <article class="location-card">
+            <span class="location-badge">Recepción</span>
+            <div class="location-icon-wrap" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 21h8m-4-4v4M5 7l7 7 7-7M5 7a7 7 0 0 0 14 0" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Recepción &amp; Brindis</h3>
+            <div class="location-time">
+              <span>🕒 Al culminar la ceremonia</span>
+            </div>
+            <p class="location-address">
+              <strong>Hotel Corona Suite</strong><br>
+              Carapeguá, Paraguay
+            </p>
+            <div class="location-card-footer">
+              <a class="secondary-btn" href="https://waze.com/ul?q=Hotel%20Corona%20Suite%20Carapegua&navigate=yes" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-8-8 18-2-8-8-2Z"/></svg> Waze
+              </a>
+              <a class="secondary-btn" href="https://www.google.com/maps/search/?api=1&query=Hotel+Corona+Suite+Carapegua+Paraguay" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg> Google Maps
+              </a>
+              <button class="secondary-btn copy-btn" data-copy="Hotel Corona Suite, Carapeguá, Paraguay" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg> Copiar
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ITINERARY -->
+    <section class="section" id="itinerario">
+      <div class="content-container reveal">
+        <p class="section-eyebrow">Momentos Especiales</p>
+        <h2>Itinerario del Gran Día</h2>
+        <div class="flourish" aria-hidden="true">❦</div>
+        <p style="color: var(--muted); font-size: 17px; margin-bottom: 24px;">
+          Un recorrido por cada instante de esta noche inolvidable.
+        </p>
+
+        <div class="timeline-container">
+          <div class="timeline-row">
+            <div class="timeline-dot" aria-hidden="true">⛪</div>
+            <div class="timeline-info">
+              <span class="timeline-time">19:00 hs</span>
+              <div class="timeline-title">Ceremonia Religiosa</div>
+              <div class="timeline-desc">Bendición de nuestro matrimonio en la Iglesia Inmaculada Concepción.</div>
+            </div>
+          </div>
+
+          <div class="timeline-row">
+            <div class="timeline-dot" aria-hidden="true">🥂</div>
+            <div class="timeline-info">
+              <span class="timeline-time">20:30 hs</span>
+              <div class="timeline-title">Bienvenida &amp; Cóctel</div>
+              <div class="timeline-desc">Recepción de los invitados en el Hotel Corona Suite con música y aperitivos.</div>
+            </div>
+          </div>
+
+          <div class="timeline-row">
+            <div class="timeline-dot" aria-hidden="true">🍽️</div>
+            <div class="timeline-info">
+              <span class="timeline-time">21:30 hs</span>
+              <div class="timeline-title">Cena de Gala &amp; Brindis</div>
+              <div class="timeline-desc">Entrada triunfal de los novios, palabras de agradecimiento y cena especial.</div>
+            </div>
+          </div>
+
+          <div class="timeline-row">
+            <div class="timeline-dot" aria-hidden="true">🎉</div>
+            <div class="timeline-info">
+              <span class="timeline-time">23:00 hs</span>
+              <div class="timeline-title">Vals &amp; Fiesta</div>
+              <div class="timeline-desc">Primer vals de esposos y baile para festejar hasta el amanecer.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPORTANT INFO & DRESS CODE -->
+    <section class="section" id="importante">
+      <div class="content-container reveal">
+        <p class="section-eyebrow">Detalles Importantes</p>
+        <h2>A Tener en Cuenta</h2>
+        <div class="flourish" aria-hidden="true">❦</div>
+
+        <div class="notes-grid">
+          <div class="note-card">
+            <div class="note-icon" aria-hidden="true">👗</div>
+            <h4>Código de Vestimenta</h4>
+            <p><strong>Formal / Elegante</strong>.<br>Te sugerimos vestir tus mejores galas. Recordamos amablemente que el color blanco está reservado exclusivamente para la novia.</p>
+          </div>
+
+          <div class="note-card">
+            <div class="note-icon" aria-hidden="true">✨</div>
+            <h4>Solo Adultos</h4>
+            <p>Amamos a los pequeños, pero hemos reservado este evento como una velada exclusivamente para personas adultas.</p>
+          </div>
+        </div>
+
+        <!-- Bank Details Collapsible -->
+        <div class="gift-box">
+          <div class="gift-box-icon" aria-hidden="true">🎁</div>
+          <p style="margin-bottom: 8px; font-size: 20px; color: var(--sage-dark); font-weight: 600;">
+            Regalo de Bodas
+          </p>
+          <p style="margin-bottom: 16px; font-size: 17px; color: var(--ink-soft);">
+            Tu presencia y tus bendiciones son nuestro mayor regalo. Si deseás hacernos un presente por transferencia bancaria:
+          </p>
+          <button class="secondary-btn" id="toggleBankBtn" type="button" aria-expanded="false" aria-controls="bankDetails">
+            Ver datos bancarios 💳
+          </button>
+
+          <div class="bank-details" id="bankDetails">
+            <div class="bank-row">
+              <span class="bank-label">Banco</span>
+              <span class="bank-value">Banco Familiar</span>
+            </div>
+            <div class="bank-row">
+              <span class="bank-label">Titular</span>
+              <span class="bank-value">Yessica Maria Lopez Jara</span>
+            </div>
+            <div class="bank-row">
+              <span class="bank-label">Alias</span>
+              <span class="bank-value">0991783812</span>
+            </div>
+
+            <div class="bank-copy-row">
+              <button class="secondary-btn copy-btn" data-copy="0991783812" type="button" style="font-size: 13px; width: 100%;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg> Copiar alias: 0991783812
+              </button>
+              <button class="secondary-btn copy-btn" data-copy="Banco Familiar - TITULAR: Yessica Maria Lopez Jara - ALIAS: 0991783812" type="button" style="font-size: 13px; width: 100%;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg> Copiar todos los datos
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONFIRMACION DE INVITADOS -->
+    <section class="section" id="confirmacion">
+      <div class="content-container reveal">
+        <p class="section-eyebrow">RSVP</p>
+        <h2>Confirmá tu Asistencia</h2>
+        <div class="flourish" aria-hidden="true">❦</div>
+
+        <div class="rsvp-card">
+          <p>Nos encantaría contar con tu presencia en este día tan especial. Por favor, hacenos saber si podrás acompañarnos.</p>
+          <p class="rsvp-deadline">Ingresá tus datos y elegí una opción. Tu respuesta se registrará en nuestra lista de invitados.<br>Fecha límite para responder: 1 de agosto de 2027.</p>
+          <div class="rsvp-form-fields">
+            <div class="rsvp-field">
+              <label for="rsvpNombre">Nombre *</label>
+              <input id="rsvpNombre" name="nombre" type="text" autocomplete="given-name" maxlength="80" required placeholder="Tu nombre">
+            </div>
+            <div class="rsvp-field">
+              <label for="rsvpApellido">Apellido *</label>
+              <input id="rsvpApellido" name="apellido" type="text" autocomplete="family-name" maxlength="80" required placeholder="Tu apellido">
+            </div>
+            <div class="rsvp-field full">
+              <label for="rsvpTelefono">Teléfono (opcional)</label>
+              <input id="rsvpTelefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="Ej.: 0981 234 567">
+            </div>
+          </div>
+          <div class="rsvp-actions">
+            <button class="primary-btn btn-gold" id="rsvpConfirmBtn" type="button">Confirmar ✓</button>
+            <button class="secondary-btn rsvp-decline" id="rsvpDeclineBtn" type="button">Rechazar ✕</button>
+          </div>
+          <p class="rsvp-status" id="rsvpStatus" role="status" aria-live="polite"></p>
+          <p class="rsvp-remembered" id="rsvpRemembered" hidden></p>
+          <div class="rsvp-closed" id="rsvpClosed" role="status" hidden>
+            <p><strong>¡Gracias por tu interés en acompañarnos! 💚</strong></p>
+            <p>El plazo para confirmar asistencia a nuestra boda ha finalizado. Para cualquier consulta, por favor comunicate directamente con los novios.</p>
+            <p class="decline-signature">Con cariño,<strong>Yessica &amp; Lorenzo <span>♡</span></strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- PANTALLA DE AGRADECIMIENTO AL RECHAZAR -->
+  <div class="decline-screen" id="declineScreen" role="dialog" aria-modal="true" aria-labelledby="declineTitle" aria-hidden="true">
+    <div class="decline-card">
+      <div class="decline-heart" aria-hidden="true">🤍</div>
+      <h2 id="declineTitle">¡Gracias por tomarte el tiempo de responder!</h2>
+      <div class="flourish" aria-hidden="true">❦</div>
+      <p>Aunque en esta ocasión no puedas acompañarnos, agradecemos de corazón tus buenos deseos y el cariño hacia nosotros.</p>
+      <p>Nos hará muy felices saber que nos acompañás en este momento tan especial, aunque sea a la distancia.</p>
+      <p class="decline-signature">Con cariño,<strong>Yessica &amp; Lorenzo <span>♡</span></strong></p>
+      <button class="secondary-btn decline-back" id="declineBackBtn" type="button">← Volver a la invitación</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="monogram-badge" aria-label="Monograma Yessica &amp; Lorenzo" style="background: rgba(255,255,255,0.08); border-color: var(--gold-light); box-shadow: 0 4px 16px rgba(0,0,0,0.25), inset 0 0 0 2px rgba(255,255,255,0.15);">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="46" stroke="#e2cca0" stroke-width="2" stroke-opacity="0.9" />
+        <circle cx="50" cy="50" r="41" stroke="#e2cca0" stroke-width="0.8" stroke-dasharray="2 3" stroke-opacity="0.6" />
+        <!-- Y letter -->
+        <text x="35" y="44" font-family="'Cormorant Garamond', Georgia, serif" font-size="28" font-weight="600" fill="#fffaf0" text-anchor="middle">Y</text>
+        <!-- Ampersand -->
+        <text x="58" y="46" font-family="'Cormorant Garamond', Georgia, serif" font-size="21" font-style="italic" fill="#e2cca0" text-anchor="middle">&amp;</text>
+        <!-- L letter -->
+        <text x="50" y="74" font-family="'Cormorant Garamond', Georgia, serif" font-size="30" font-weight="600" fill="#fffaf0" text-anchor="middle">L</text>
+      </svg>
+    </div>
+    <div class="script-footer">Yessica &amp; Lorenzo</div>
+    <p class="footer-date">25 · Septiembre · 2027 · Carapeguá</p>
+    <p class="footer-note">“El amor no mira con los ojos, sino con el alma.”</p>
+    <div class="share-row">
+      <button class="secondary-btn" id="shareBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg> Compartir invitación</button>
+      <a class="secondary-btn" href="#inicio">↑ Volver al inicio</a>
+    </div>
+  </footer>
+
+  <!-- Navegación rápida -->
+  <nav class="quick-nav" id="quickNav" aria-label="Secciones de la invitación">
+    <a href="#detalles">Fecha</a>
+    <a href="#lugares">Lugar</a>
+    <a href="#itinerario">Agenda</a>
+    <a href="#importante">Info</a>
+    <a href="#confirmacion">RSVP</a>
+  </nav>
+
+  <!-- Toast Notification -->
+  <div class="toast-msg" id="toastMsg" role="status" aria-live="polite">Copiado al portapapeles</div>
+
+  <script>
+    /*
+      ======================================================
+      TARJETA DE INVITACIÓN - YESSICA & LORENZO
+      Carapeguá, Paraguay - 25 de septiembre de 2027
+      ======================================================
+    */
+
+    // --- 1. INTERACCIÓN DEL SOBRE 3D ---
+    const envelope = document.getElementById("envelope");
+    const envelopeWrap = document.getElementById("envelopeWrap");
+    const openButton = document.getElementById("openButton");
+    const tapHint = document.getElementById("tapHint");
+    const sealIcon = document.getElementById("sealIcon");
+
+    document.documentElement.classList.remove("no-js");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let hasCelebrated = false;
+
+    function openEnvelope() {
+      const isOpen = envelope.classList.toggle("open");
+      envelopeWrap.setAttribute("aria-expanded", String(isOpen));
+      if (isOpen) {
+        tapHint.textContent = "¡Nuestra invitación está abierta! Deslizá hacia abajo para ver los detalles.";
+        openButton.innerHTML = "<span>Cerrar sobre</span> <span aria-hidden=\"true\">♥</span>";
+        if (!hasCelebrated) {
+          triggerPetalsCelebration();
+          hasCelebrated = true;
+          setTimeout(() => {
+            document.getElementById("detalles").scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
+          }, 1100);
+        }
+      } else {
+        tapHint.textContent = "Tocá el sobre o el sello para abrir nuestra invitación";
+        openButton.innerHTML = "<span>Abrir invitación</span> <span aria-hidden=\"true\">♥</span>";
+      }
+    }
+
+    envelopeWrap.addEventListener("click", openEnvelope);
+    openButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openEnvelope();
+    });
+    envelopeWrap.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openEnvelope();
+      }
+    });
+
+    // --- 3. CUENTA REGRESIVA (Hora paraguaya UTC-3) ---
+    const weddingDate = new Date("2027-09-25T19:00:00-03:00");
+    const countEls = ["days", "hours", "minutes", "seconds"].map((id) => document.getElementById(id));
+    let countdownTimer = null;
+    function updateCountdown() {
+      const diff = weddingDate.getTime() - Date.now();
+      if (diff <= 0) {
+        clearInterval(countdownTimer);
+        const msg = diff > -18 * 60 * 60 * 1000 ? "¡Hoy es el gran día!" : "¡Gracias por celebrar con nosotros!";
+        document.getElementById("countdownWrap").innerHTML = '<p class="countdown-done">' + msg + '</p>';
+        return;
+      }
+      const values = [
+        Math.floor(diff / 86400000),
+        Math.floor((diff / 3600000) % 24),
+        Math.floor((diff / 60000) % 60),
+        Math.floor((diff / 1000) % 60)
+      ];
+      values.forEach((v, i) => {
+        const text = String(v).padStart(2, "0");
+        if (countEls[i].textContent !== text) countEls[i].textContent = text;
+      });
+    }
+    updateCountdown();
+    countdownTimer = setInterval(updateCountdown, 1000);
+
+    // --- 4. AGENDAR EN CALENDARIO (Google & iCal .ics) ---
+    const calEvent = {
+      title: "Boda de Yessica y Lorenzo",
+      description: "Celebración del matrimonio de Yessica y Lorenzo. Ceremonia religiosa en Iglesia Inmaculada Concepción y recepción en Hotel Corona Suite, Carapeguá.",
+      location: "Iglesia Inmaculada Concepción de María, Carapeguá, Paraguay",
+      start: "20270925T220000Z", // 19:00 UTC-3 = 22:00 UTC
+      end: "20270926T080000Z"
+    };
+
+    const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(calEvent.title)}&dates=${calEvent.start}/${calEvent.end}&details=${encodeURIComponent(calEvent.description)}&location=${encodeURIComponent(calEvent.location)}`;
+    document.getElementById("googleCalBtn").href = googleCalUrl;
+
+    document.getElementById("iCalBtn").addEventListener("click", () => {
+      const esc = (t) => t.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
+      const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+      const icsData = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Yessica y Lorenzo//Boda//ES",
+        "BEGIN:VEVENT",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH",
+        "UID:boda-yessica-lorenzo-20270925@invitacion.local",
+        `DTSTAMP:${stamp}`,
+        `DTSTART:${calEvent.start}`,
+        `DTEND:${calEvent.end}`,
+        `SUMMARY:${esc(calEvent.title)}`,
+        `DESCRIPTION:${esc(calEvent.description)}`,
+        `LOCATION:${esc(calEvent.location)}`,
+        "STATUS:CONFIRMED",
+        "BEGIN:VALARM",
+        "TRIGGER:-P1D",
+        "ACTION:DISPLAY",
+        "DESCRIPTION:Mañana es la boda de Yessica y Lorenzo",
+        "END:VALARM",
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\r\n");
+
+      const blob = new Blob([icsData], { type: "text/calendar;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "Boda-Yessica-y-Lorenzo.ics";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+      showToast("Descargando evento de calendario...");
+    });
+
+    // --- 5. COPIAR AL PORTAPAPELES CON TOAST ---
+    const toast = document.getElementById("toastMsg");
+    let toastTimer = null;
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
+    }
+
+    document.querySelectorAll(".copy-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const textToCopy = btn.getAttribute("data-copy");
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(textToCopy).then(() => {
+            showToast("✓ Copiado al portapapeles");
+          }).catch(() => fallbackCopy(textToCopy));
+        } else {
+          fallbackCopy(textToCopy);
+        }
+      });
+    });
+
+    function fallbackCopy(text) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        showToast("✓ Copiado al portapapeles");
+      } catch (e) {
+        showToast("No se pudo copiar automáticamente");
+      }
+      document.body.removeChild(ta);
+    }
+
+    // Toggle Bank Details
+    const toggleBankBtn = document.getElementById("toggleBankBtn");
+    const bankDetails = document.getElementById("bankDetails");
+    toggleBankBtn.addEventListener("click", () => {
+      const isVisible = bankDetails.classList.toggle("visible");
+      toggleBankBtn.textContent = isVisible ? "Ocultar datos bancarios ✕" : "Ver datos bancarios 💳";
+      toggleBankBtn.setAttribute("aria-expanded", String(isVisible));
+    });
+
+    // --- 5. AMBIENT MUSIC SYNTHESIZER (Web Audio API) ---
+    // Soft romantic classical harp/arpeggio generated natively - no external audio file needed!
+    let audioCtx = null;
+    let isPlaying = false;
+    let audioTimer = null;
+    const audioToggleBtn = document.getElementById("audioToggleBtn");
+    const audioText = document.getElementById("audioText");
+
+    const notes = [
+      261.63, 329.63, 392.00, 523.25, // C chord
+      220.00, 261.63, 329.63, 440.00, // Am chord
+      174.61, 220.00, 261.63, 349.23, // F chord
+      196.00, 246.94, 293.66, 392.00  // G chord
+    ];
+
+    function playSoftHarpNote(freq, time) {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, time);
+
+      gain.gain.setValueAtTime(0.0001, time);
+      gain.gain.exponentialRampToValueAtTime(0.045, time + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.0001, time + 1.6);
+
+      osc.connect(gain);
+      gain.connect(masterOut);
+
+      osc.start(time);
+      osc.stop(time + 1.7);
+    }
+
+    let masterOut = null;
+    function setupAudio() {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      // Mezcla con un eco suave para que suene más cálido (tipo arpa en una sala)
+      masterOut = audioCtx.createGain();
+      masterOut.gain.value = 0.9;
+      const delay = audioCtx.createDelay(1.0);
+      delay.delayTime.value = 0.33;
+      const feedback = audioCtx.createGain();
+      feedback.gain.value = 0.32;
+      const tone = audioCtx.createBiquadFilter();
+      tone.type = "lowpass";
+      tone.frequency.value = 2200;
+      masterOut.connect(audioCtx.destination);
+      masterOut.connect(delay);
+      delay.connect(tone);
+      tone.connect(feedback);
+      feedback.connect(delay);
+      tone.connect(audioCtx.destination);
+    }
+
+    function startMusic() {
+      if (!audioCtx) setupAudio();
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+      isPlaying = true;
+      audioToggleBtn.classList.add("audio-playing");
+      audioText.textContent = "Pausar música ♫";
+      audioToggleBtn.setAttribute("aria-pressed", "true");
+
+      let noteIdx = 0;
+      audioTimer = setInterval(() => {
+        if (!isPlaying || !audioCtx) return;
+        const now = audioCtx.currentTime;
+        playSoftHarpNote(notes[noteIdx % notes.length], now);
+        if (noteIdx % 4 === 0) {
+          playSoftHarpNote(notes[(noteIdx + 2) % notes.length] * 0.5, now); // soft bass
+        }
+        noteIdx++;
+      }, 550);
+    }
+
+    function stopMusic() {
+      isPlaying = false;
+      if (audioTimer) clearInterval(audioTimer);
+      audioToggleBtn.classList.remove("audio-playing");
+      audioText.textContent = "Activar música ♪";
+      audioToggleBtn.setAttribute("aria-pressed", "false");
+    }
+
+    let pausedByVisibility = false;
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && isPlaying) { stopMusic(); pausedByVisibility = true; }
+      else if (!document.hidden && pausedByVisibility) { pausedByVisibility = false; startMusic(); }
+    });
+
+    audioToggleBtn.addEventListener("click", () => {
+      if (isPlaying) {
+        stopMusic();
+      } else {
+        startMusic();
+      }
+    });
+
+    // --- 6. ROSE PETALS CELEBRATION (Lightweight Canvas FX) ---
+    const canvas = document.getElementById("fxCanvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let animId = null;
+
+    let viewW = window.innerWidth, viewH = window.innerHeight;
+    function resizeCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      viewW = window.innerWidth;
+      viewH = window.innerHeight;
+      canvas.width = viewW * dpr;
+      canvas.height = viewH * dpr;
+      canvas.style.width = viewW + "px";
+      canvas.style.height = viewH + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    class Petal {
+      constructor() {
+        this.x = Math.random() * viewW;
+        this.y = -20 - Math.random() * 50;
+        this.size = 8 + Math.random() * 12;
+        this.speedY = 1.2 + Math.random() * 2.2;
+        this.speedX = -1 + Math.random() * 2;
+        this.rotation = Math.random() * 360;
+        this.rotSpeed = -2 + Math.random() * 4;
+        this.opacity = 0.8 + Math.random() * 0.2;
+        // Paleta: tonos suaves de pétalo rosa marfil y dorado
+        const colors = ["#e8c8b8", "#f4dcd0", "#eed3be", "#d8b67a", "#c99e52"];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+      update() {
+        this.y += this.speedY;
+        this.x += Math.sin(this.y * 0.02) * 1.5 + this.speedX;
+        this.rotation += this.rotSpeed;
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate((this.rotation * Math.PI) / 180);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.opacity;
+        ctx.beginPath();
+        ctx.moveTo(0, -this.size);
+        ctx.bezierCurveTo(this.size * 0.8, -this.size * 0.6, this.size * 0.55, this.size * 0.7, 0, this.size);
+        ctx.bezierCurveTo(-this.size * 0.55, this.size * 0.7, -this.size * 0.8, -this.size * 0.6, 0, -this.size);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function animatePetals() {
+      ctx.clearRect(0, 0, viewW, viewH);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.update();
+        if (p.y > viewH + 30) particles.splice(i, 1);
+        else p.draw();
+      }
+      if (particles.length > 0) {
+        animId = requestAnimationFrame(animatePetals);
+      } else {
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+    }
+
+    function triggerPetalsCelebration() {
+      if (prefersReducedMotion) return;
+      for (let i = 0; i < 45; i++) {
+        setTimeout(() => {
+          particles.push(new Petal());
+          if (!animId) animatePetals();
+        }, i * 60);
+      }
+    }
+
+    // RSVP: registra la respuesta en Google Sheets sin abrir otra pestaña.
+    (function () {
+      const appsScriptUrl = "https://script.google.com/macros/s/AKfycby5WdIJRVzjMImQWg3sGKkahL1BlBHNV6FwU563y5Po2fekq-ZWgNJU0EGLZ5fW-3v4Ag/exec";
+      const confirmBtn = document.getElementById("rsvpConfirmBtn");
+      const declineBtn = document.getElementById("rsvpDeclineBtn");
+      const nameInput = document.getElementById("rsvpNombre");
+      const surnameInput = document.getElementById("rsvpApellido");
+      const phoneInput = document.getElementById("rsvpTelefono");
+      const statusMessage = document.getElementById("rsvpStatus");
+      const declineScreen = document.getElementById("declineScreen");
+      const backBtn = document.getElementById("declineBackBtn");
+      const rsvpCard = document.querySelector("#confirmacion .rsvp-card");
+      const closedMessage = document.getElementById("rsvpClosed");
+      const rememberedMsg = document.getElementById("rsvpRemembered");
+      const STORAGE_KEY = "boda-yl-rsvp";
+      let pushed = false;
+
+      function showRemembered() {
+        let saved = null;
+        try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null"); } catch (e) { saved = null; }
+        if (!saved || !saved.nombre) return;
+        nameInput.value = nameInput.value || saved.nombre;
+        surnameInput.value = surnameInput.value || saved.apellido || "";
+        phoneInput.value = phoneInput.value || saved.telefono || "";
+        const verbo = saved.estado === "CONFIRMADO" ? "confirmaste tu asistencia 💚" : "nos avisaste que no podrás venir 🤍";
+        rememberedMsg.textContent = "Hola " + saved.nombre + ", ya " + verbo + " Si necesitás cambiar tu respuesta, podés volver a elegir una opción.";
+        rememberedMsg.hidden = false;
+      }
+
+      // Cierre automático: se aceptan respuestas hasta el 1/08/2027 23:59 (hora de Paraguay).
+      // Desde el 2/08/2027 en America/Asuncion el formulario queda cerrado.
+      // Apps Script vuelve a validar la fecha antes de guardar, así que esto no depende solo del navegador.
+      const RSVP_TIMEZONE = "America/Asuncion";
+      const RSVP_CLOSING_DAY = "2027-08-02";
+      // Solo para pruebas: ?fechaPrueba=2027-08-02 simula esa fecha en este navegador (no cambia la fecha real).
+      const testDate = new URLSearchParams(location.search).get("fechaPrueba");
+
+      function todayInParaguay() {
+        if (testDate && /^\d{4}-\d{2}-\d{2}$/.test(testDate)) return testDate;
+        try {
+          return new Intl.DateTimeFormat("en-CA", { timeZone: RSVP_TIMEZONE, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+        } catch (e) {
+          // Navegadores sin soporte de zonas horarias: Paraguay usa UTC-3.
+          return new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        }
+      }
+
+      function isRsvpClosed() {
+        return todayInParaguay() >= RSVP_CLOSING_DAY;
+      }
+
+      function applyClosedState() {
+        rsvpCard.classList.add("is-closed");
+        confirmBtn.disabled = true;
+        declineBtn.disabled = true;
+        confirmBtn.setAttribute("aria-disabled", "true");
+        declineBtn.setAttribute("aria-disabled", "true");
+        [nameInput, surnameInput, phoneInput].forEach((input) => { input.disabled = true; });
+        showStatus("");
+        closedMessage.hidden = false;
+      }
+
+      function showStatus(message, isError = false) {
+        statusMessage.textContent = message;
+        statusMessage.classList.toggle("error", isError);
+      }
+
+      function openDecline() {
+        declineScreen.classList.add("is-open");
+        declineScreen.setAttribute("aria-hidden", "false");
+        document.body.classList.add("decline-open");
+        backBtn.focus({ preventScroll: true });
+      }
+
+      function closeDecline() {
+        declineScreen.classList.remove("is-open");
+        declineScreen.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("decline-open");
+      }
+
+      function validateGuest() {
+        if (!nameInput.value.trim() || !surnameInput.value.trim()) {
+          showStatus("Por favor, completá tu nombre y apellido para registrar tu respuesta.", true);
+          (!nameInput.value.trim() ? nameInput : surnameInput).focus();
+          return false;
+        }
+        return true;
+      }
+
+      async function sendResponse(estado) {
+        if (isRsvpClosed()) {
+          applyClosedState();
+          return false;
+        }
+        if (!validateGuest()) return false;
+        confirmBtn.disabled = true;
+        declineBtn.disabled = true;
+        showStatus("Estamos registrando tu respuesta…");
+
+        const payload = {
+          // Reutiliza el mismo identificador durante esta sesión para evitar duplicados accidentales.
+          id: "INVITADO-" + nameInput.value.trim().toLowerCase() + "-" + surnameInput.value.trim().toLowerCase(),
+          nombre: nameInput.value.trim(),
+          apellido: surnameInput.value.trim(),
+          telefono: phoneInput.value.trim(),
+          estado: estado
+        };
+
+        let closedByServer = false;
+        try {
+          // Apps Script recibe JSON como texto y responde JSON, así podemos verificar que la respuesta se guardó.
+          const response = await fetch(appsScriptUrl, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain;charset=UTF-8" },
+            body: JSON.stringify(payload)
+          });
+          let result = null;
+          try { result = await response.json(); } catch (e) { result = null; }
+
+          if (result && result.cerrado) {
+            closedByServer = true;
+            applyClosedState();
+            return false;
+          }
+          if (!response.ok || !result || result.ok !== true) {
+            showStatus("No pudimos confirmar que tu respuesta se haya registrado. Por favor, intentá nuevamente en unos minutos o comunicate con los novios.", true);
+            return false;
+          }
+
+          try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ nombre: payload.nombre, apellido: payload.apellido, telefono: payload.telefono, estado: estado })); } catch (e) {}
+          showRemembered();
+
+          // Mostrar una pantalla de agradecimiento dentro de la invitación para ambas respuestas.
+          const title = document.getElementById("declineTitle");
+          const paragraphs = declineScreen.querySelectorAll(".decline-card > p");
+          if (estado === "CONFIRMADO") {
+            title.textContent = "¡Gracias por confirmar tu asistencia!";
+            if (paragraphs[0]) paragraphs[0].textContent = "Nos llena de alegría saber que vas a acompañarnos en este día tan especial.";
+            if (paragraphs[1]) paragraphs[1].textContent = "¡Estamos contando los días para celebrar juntos!";
+            showStatus("¡Muchas gracias! Tu respuesta fue enviada.");
+            if (typeof triggerPetalsCelebration === "function") triggerPetalsCelebration();
+          } else {
+            title.textContent = "¡Gracias por avisarnos!";
+            if (paragraphs[0]) paragraphs[0].textContent = "Aunque en esta ocasión no puedas acompañarnos, agradecemos de corazón tus buenos deseos y el cariño hacia nosotros.";
+            if (paragraphs[1]) paragraphs[1].textContent = "Te mandamos un abrazo enorme y gracias por tomarte el tiempo de responder.";
+            showStatus("Gracias por responder.");
+          }
+          if (location.hash !== "#gracias") {
+            history.pushState(null, "", "#gracias");
+            pushed = true;
+          }
+          openDecline();
+          return true;
+        } catch (error) {
+          showStatus("No pudimos enviar la respuesta. Revisá tu conexión e intentá nuevamente.", true);
+          return false;
+        } finally {
+          if (!closedByServer && !isRsvpClosed()) {
+            confirmBtn.disabled = false;
+            declineBtn.disabled = false;
+          }
+        }
+      }
+
+      confirmBtn.addEventListener("click", () => {
+        sendResponse("CONFIRMADO");
+      });
+
+      declineBtn.addEventListener("click", () => {
+        sendResponse("RECHAZADO");
+      });
+
+      backBtn.addEventListener("click", () => {
+        if (pushed) {
+          pushed = false;
+          history.back();
+        } else {
+          if (location.hash === "#gracias") history.replaceState(null, "", location.pathname + location.search);
+          closeDecline();
+        }
+        declineBtn.focus({ preventScroll: true });
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && declineScreen.classList.contains("is-open")) backBtn.click();
+      });
+      window.addEventListener("popstate", () => {
+        pushed = false;
+        if (location.hash === "#gracias") openDecline(); else closeDecline();
+      });
+      window.addEventListener("hashchange", () => {
+        if (location.hash === "#gracias") openDecline(); else closeDecline();
+      });
+      if (location.hash === "#gracias") openDecline(); else closeDecline();
+      if (isRsvpClosed()) applyClosedState(); else showRemembered();
+    })();
+
+    // --- 7. APARICIÓN AL HACER SCROLL + NAVEGACIÓN RÁPIDA ---
+    (function () {
+      const reveals = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) { entry.target.classList.add("is-visible"); io.unobserve(entry.target); }
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+        reveals.forEach((el) => io.observe(el));
+      } else {
+        reveals.forEach((el) => el.classList.add("is-visible"));
+      }
+
+      const nav = document.getElementById("quickNav");
+      const hero = document.getElementById("inicio");
+      const footer = document.querySelector("footer");
+      const links = Array.from(nav.querySelectorAll("a"));
+      const sections = links.map((a) => document.querySelector(a.getAttribute("href")));
+      function onScroll() {
+        const y = window.scrollY;
+        const nearFooter = footer.getBoundingClientRect().top < window.innerHeight - 40;
+        nav.classList.toggle("is-shown", y > hero.offsetHeight * 0.6 && !nearFooter);
+        let current = -1;
+        sections.forEach((sec, i) => { if (sec && sec.getBoundingClientRect().top < window.innerHeight * 0.45) current = i; });
+        links.forEach((a, i) => a.classList.toggle("is-active", i === current));
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
+      onScroll();
+    })();
+
+    // --- 8. COMPARTIR INVITACIÓN ---
+    document.getElementById("shareBtn").addEventListener("click", async () => {
+      const url = location.origin + location.pathname;
+      const data = { title: "Boda de Yessica & Lorenzo", text: "¡Estás invitado/a a la boda de Yessica & Lorenzo! 25 de septiembre de 2027 · Carapeguá", url };
+      if (navigator.share) {
+        try { await navigator.share(data); } catch (e) { /* cancelado */ }
+        return;
+      }
+      window.open("https://wa.me/?text=" + encodeURIComponent(data.text + " " + url), "_blank", "noopener");
+    });
+  </script>
+</body>
+</html>
