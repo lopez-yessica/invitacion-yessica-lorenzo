@@ -1681,7 +1681,8 @@
     const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(calEvent.title)}&dates=${calEvent.start}/${calEvent.end}&details=${encodeURIComponent(calEvent.description)}&location=${encodeURIComponent(calEvent.location)}`;
     document.getElementById("googleCalBtn").href = googleCalUrl;
 
-    document.getElementById("iCalBtn").addEventListener("click", () => {
+   const iCalBtn = document.getElementById("iCalBtn");
+if (iCalBtn) iCalBtn.addEventListener("click", () => {
       const esc = (t) => t.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
       const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
       const icsData = [
