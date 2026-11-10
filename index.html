@@ -1769,55 +1769,6 @@ if (iCalBtn) iCalBtn.addEventListener("click", () => {
     });
 
     
-// --- 5. REPRODUCTOR DE MUSICA DE FONDO ---
-(() => {
-    const backgroundAudio = new Audio(
-        "https://lopez-yessica.github.io/invitacion-yessica-lorenzo/Pasando-P%C3%A1gina.mp3.mpeg"
-    );
-
-    backgroundAudio.loop = true;
-    backgroundAudio.preload = "auto";
-    backgroundAudio.volume = 0.65;
-
-    const audioToggleBtn = document.getElementById("audioToggleBtn");
-    const audioText = document.getElementById("audioText");
-
-    let isPlaying = false;
-
-    function updateAudioButton() {
-        if (audioText) {
-            audioText.textContent = isPlaying
-                ? "Pausar música ♪"
-                : "Activar música ♪";
-        }
-
-        if (audioToggleBtn) {
-            audioToggleBtn.setAttribute("aria-pressed", String(isPlaying));
-        }
-    }
-
-    if (audioToggleBtn) {
-        audioToggleBtn.addEventListener("click", async () => {
-            if (isPlaying) {
-                backgroundAudio.pause();
-                isPlaying = false;
-                updateAudioButton();
-                return;
-            }
-
-            try {
-                await backgroundAudio.play();
-                isPlaying = true;
-                updateAudioButton();
-            } catch (error) {
-                console.error("Error al reproducir música:", error);
-                updateAudioButton();
-            }
-        });
-    }
-
-    updateAudioButton();
-})();
     
     // --- 6. ROSE PETALS CELEBRATION (Lightweight Canvas FX) ---
     const canvas = document.getElementById("fxCanvas");
@@ -2139,5 +2090,34 @@ if (iCalBtn) iCalBtn.addEventListener("click", () => {
       window.open("https://wa.me/?text=" + encodeURIComponent(data.text + " " + url), "_blank", "noopener");
     });
   </script>
+  <script>
+const backgroundAudio = new Audio(
+  "https://lopez-yessica.github.io/invitacion-yessica-lorenzo/Pasando-P%C3%A1gina.mp3.mpeg"
+);
+
+backgroundAudio.loop = true;
+backgroundAudio.volume = 0.65;
+
+const audioToggleBtn = document.getElementById("audioToggleBtn");
+const audioText = document.getElementById("audioText");
+
+if (audioToggleBtn && audioText) {
+  audioToggleBtn.addEventListener("click", async () => {
+    try {
+      if (backgroundAudio.paused) {
+        await backgroundAudio.play();
+        audioText.textContent = "Pausar música ♪";
+        audioToggleBtn.setAttribute("aria-pressed", "true");
+      } else {
+        backgroundAudio.pause();
+        audioText.textContent = "Activar música ♪";
+        audioToggleBtn.setAttribute("aria-pressed", "false");
+      }
+    } catch (error) {
+      console.error("Error al reproducir:", error);
+    }
+  });
+}
+</script>
 </body>
 </html>
