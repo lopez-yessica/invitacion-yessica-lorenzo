@@ -1770,58 +1770,54 @@ if (iCalBtn) iCalBtn.addEventListener("click", () => {
 
     
 // --- 5. REPRODUCTOR DE MUSICA DE FONDO ---
-const backgroundAudio = new Audio("https://lopez-yessica.github.io/invitacion-yessica-lorenzo/Pasando-P%C3%A1gina.mp3.mpeg");
-backgroundAudio.loop = true;
-backgroundAudio.preload = "auto";
-backgroundAudio.volume = 0.65;
+(() => {
+    const backgroundAudio = new Audio(
+        "https://lopez-yessica.github.io/invitacion-yessica-lorenzo/Pasando-P%C3%A1gina.mp3.mpeg"
+    );
 
-let isPlaying = false;
+    backgroundAudio.loop = true;
+    backgroundAudio.preload = "auto";
+    backgroundAudio.volume = 0.65;
 
-const audioToggleBtn = document.getElementById("audioToggleBtn");
-const audioText = document.getElementById("audioText");
+    const audioToggleBtn = document.getElementById("audioToggleBtn");
+    const audioText = document.getElementById("audioText");
 
-function updateAudioButton() {
-    if (audioText) {
-        audioText.textContent = isPlaying
-            ? "Pausar música ♪"
-            : "Activar música ♪";
+    let isPlaying = false;
+
+    function updateAudioButton() {
+        if (audioText) {
+            audioText.textContent = isPlaying
+                ? "Pausar música ♪"
+                : "Activar música ♪";
+        }
+
+        if (audioToggleBtn) {
+            audioToggleBtn.setAttribute("aria-pressed", String(isPlaying));
+        }
     }
 
     if (audioToggleBtn) {
-        audioToggleBtn.setAttribute("aria-pressed", String(isPlaying));
-    }
-}
+        audioToggleBtn.addEventListener("click", async () => {
+            if (isPlaying) {
+                backgroundAudio.pause();
+                isPlaying = false;
+                updateAudioButton();
+                return;
+            }
 
-async function startMusic() {
-    try {
-        await backgroundAudio.play();
-        isPlaying = true;
-        updateAudioButton();
-    } catch (error) {
-        console.error("Error al reproducir la música:", error);
-        isPlaying = false;
-        updateAudioButton();
+            try {
+                await backgroundAudio.play();
+                isPlaying = true;
+                updateAudioButton();
+            } catch (error) {
+                console.error("Error al reproducir música:", error);
+                updateAudioButton();
+            }
+        });
     }
-}
 
-function stopMusic() {
-    backgroundAudio.pause();
-    isPlaying = false;
     updateAudioButton();
-}
-
-if (audioToggleBtn) {
-    audioToggleBtn.addEventListener("click", () => {
-        if (isPlaying) {
-            stopMusic();
-        } else {
-            startMusic();
-        }
-    });
-}
-
-updateAudioButton();
-
+})();
 
     // --- 6. ROSE PETALS CELEBRATION (Lightweight Canvas FX) ---
     const canvas = document.getElementById("fxCanvas");
