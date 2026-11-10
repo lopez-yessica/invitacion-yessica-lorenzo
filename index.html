@@ -1767,104 +1767,60 @@
       toggleBankBtn.setAttribute("aria-expanded", String(isVisible));
     });
 
-    // --- 5. AMBIENT MUSIC SYNTHESIZER (Web Audio API) ---
-    // Soft romantic classical harp/arpeggio generated natively - no external audio file needed!
-    let audioCtx = null;
-    let isPlaying = false;
-    let audioTimer = null;
-    const audioToggleBtn = document.getElementById("audioToggleBtn");
-    const audioText = document.getElementById("audioText");
+    
+// --- 5. REPRODUCTOR DE MUSICA DE FONDO ---
+const backgroundAudio = new Audio("./Pasando-Página.mp3.mpeg");
+backgroundAudio.loop = true;
+backgroundAudio.preload = "auto";
+backgroundAudio.volume = 0.65;
 
-    const notes = [
-      261.63, 329.63, 392.00, 523.25, // C chord
-      220.00, 261.63, 329.63, 440.00, // Am chord
-      174.61, 220.00, 261.63, 349.23, // F chord
-      196.00, 246.94, 293.66, 392.00  // G chord
-    ];
+let isPlaying = false;
 
-    function playSoftHarpNote(freq, time) {
-      if (!audioCtx) return;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
+const audioToggleBtn = document.getElementById("audioToggleBtn");
+const audioText = document.getElementById("audioText");
 
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(freq, time);
-
-      gain.gain.setValueAtTime(0.0001, time);
-      gain.gain.exponentialRampToValueAtTime(0.045, time + 0.05);
-      gain.gain.exponentialRampToValueAtTime(0.0001, time + 1.6);
-
-      osc.connect(gain);
-      gain.connect(masterOut);
-
-      osc.start(time);
-      osc.stop(time + 1.7);
+function updateAudioButton() {
+    if (audioText) {
+        audioText.textContent = isPlaying
+            ? "Pausar música ♪"
+            : "Activar música ♪";
     }
 
-    let masterOut = null;
-    function setupAudio() {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      // Mezcla con un eco suave para que suene más cálido (tipo arpa en una sala)
-      masterOut = audioCtx.createGain();
-      masterOut.gain.value = 0.9;
-      const delay = audioCtx.createDelay(1.0);
-      delay.delayTime.value = 0.33;
-      const feedback = audioCtx.createGain();
-      feedback.gain.value = 0.32;
-      const tone = audioCtx.createBiquadFilter();
-      tone.type = "lowpass";
-      tone.frequency.value = 2200;
-      masterOut.connect(audioCtx.destination);
-      masterOut.connect(delay);
-      delay.connect(tone);
-      tone.connect(feedback);
-      feedback.connect(delay);
-      tone.connect(audioCtx.destination);
+    if (audioToggleBtn) {
+        audioToggleBtn.setAttribute("aria-pressed", String(isPlaying));
     }
+}
 
-    function startMusic() {
-      if (!audioCtx) setupAudio();
-      if (audioCtx.state === "suspended") {
-        audioCtx.resume();
-      }
-      isPlaying = true;
-      audioToggleBtn.classList.add("audio-playing");
-      audioText.textContent = "Pausar música ♫";
-      audioToggleBtn.setAttribute("aria-pressed", "true");
-
-      let noteIdx = 0;
-      audioTimer = setInterval(() => {
-        if (!isPlaying || !audioCtx) return;
-        const now = audioCtx.currentTime;
-        playSoftHarpNote(notes[noteIdx % notes.length], now);
-        if (noteIdx % 4 === 0) {
-          playSoftHarpNote(notes[(noteIdx + 2) % notes.length] * 0.5, now); // soft bass
-        }
-        noteIdx++;
-      }, 550);
+async function startMusic() {
+    try {
+        await backgroundAudio.play();
+        isPlaying = true;
+        updateAudioButton();
+    } catch (error) {
+        console.error("Error al reproducir la música:", error);
+        isPlaying = false;
+        updateAudioButton();
     }
+}
 
-    function stopMusic() {
-      isPlaying = false;
-      if (audioTimer) clearInterval(audioTimer);
-      audioToggleBtn.classList.remove("audio-playing");
-      audioText.textContent = "Activar música ♪";
-      audioToggleBtn.setAttribute("aria-pressed", "false");
-    }
+function stopMusic() {
+    backgroundAudio.pause();
+    isPlaying = false;
+    updateAudioButton();
+}
 
-    let pausedByVisibility = false;
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden && isPlaying) { stopMusic(); pausedByVisibility = true; }
-      else if (!document.hidden && pausedByVisibility) { pausedByVisibility = false; startMusic(); }
-    });
-
+if (audioToggleBtn) {
     audioToggleBtn.addEventListener("click", () => {
-      if (isPlaying) {
-        stopMusic();
-      } else {
-        startMusic();
-      }
+        if (isPlaying) {
+            stopMusic();
+        } else {
+            startMusic();
+        }
     });
+}
+
+updateAudioButton();
+
 
     // --- 6. ROSE PETALS CELEBRATION (Lightweight Canvas FX) ---
     const canvas = document.getElementById("fxCanvas");
