@@ -223,6 +223,31 @@
       line-height: 1.45;
     }
 
+    /* INVITACIÓN PERSONALIZADA AL INICIO */
+    .hero-family-invite {
+      width: min(100%, 440px);
+      margin: 0 auto 18px;
+      padding: 14px 18px;
+      border: 1px solid rgba(181, 152, 80, .45);
+      border-radius: 14px;
+      background: rgba(255, 253, 249, .82);
+      box-shadow: 0 6px 20px rgba(43, 48, 38, .06);
+    }
+    .hero-family-name {
+      color: var(--sage-dark);
+      font-size: 25px;
+      line-height: 1.2;
+      font-weight: 600;
+    }
+    .hero-family-count {
+      margin-top: 5px;
+      color: var(--ink-soft);
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
     /* ENVELOPE CONTAINER */
     .envelope-wrap {
       width: min(88vw, 360px);
@@ -1248,6 +1273,12 @@
       <p class="eyebrow">Nuestra Boda</p>
       <p class="quote">“Dos almas, un mismo camino y una vida entera para amarse.”</p>
 
+      <!-- Invitación personalizada para cada familia -->
+      <div class="hero-family-invite" id="heroFamilyInvite" hidden>
+        <p class="hero-family-name" id="heroFamilyName"></p>
+        <p class="hero-family-count" id="heroFamilyCount"></p>
+      </div>
+
       <!-- 3D Realistic Envelope -->
       <div class="envelope-wrap" id="envelopeWrap" role="button" tabindex="0" aria-label="Abrir invitación" aria-expanded="false" aria-controls="detalles">
         <div class="envelope" id="envelope">
@@ -1849,6 +1880,9 @@ if (iCalBtn) iCalBtn.addEventListener("click", () => {
       const invitacion = id ? invitaciones[id.toUpperCase()] : null;
       const greeting = document.getElementById("familyGreeting");
       const count = document.getElementById("familyCount");
+      const heroFamilyInvite = document.getElementById("heroFamilyInvite");
+      const heroFamilyName = document.getElementById("heroFamilyName");
+      const heroFamilyCount = document.getElementById("heroFamilyCount");
       const actions = document.getElementById("rsvpActions");
       const invalid = document.getElementById("rsvpInvalid");
       const confirmBtn = document.getElementById("rsvpConfirmBtn");
@@ -1867,6 +1901,12 @@ if (iCalBtn) iCalBtn.addEventListener("click", () => {
       } else {
         greeting.textContent = invitacion.nombre;
         count.textContent = "Invitación válida para " + invitacion.personas + (invitacion.personas === 1 ? " persona" : " personas");
+
+        // Mostrar también el destinatario y los lugares al comienzo de la invitación.
+        heroFamilyInvite.hidden = false;
+        heroFamilyName.textContent = "Para " + invitacion.nombre;
+        heroFamilyCount.textContent = "Invitación válida para " + invitacion.personas
+          + (invitacion.personas === 1 ? " persona" : " personas");
       }
 
       function showStatus(message, error) {
