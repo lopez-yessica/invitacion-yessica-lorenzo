@@ -1874,6 +1874,47 @@ if (iCalBtn) iCalBtn.addEventListener("click", () => {
         status.classList.toggle("error", !!error);
       }
 
+      // Consulta en Google Sheets si esta familia ya respondió.
+      // Si ya existe una respuesta, ocultamos los botones al abrir o reenviar el enlace.
+      function consultarRespuesta() {
+        if (!invitacion || !id) return;
+
+        const callbackName = "rsvpConsultaCallback";
+        const script = document.createElement("script");
+        let terminado = false;
+
+        const limpiar = () => {
+          if (terminado) return;
+          terminado = true;
+          delete window[callbackName];
+          script.remove();
+        };
+
+        window[callbackName] = (data) => {
+          limpiar();
+
+          if (data && data.ok && data.yaRespondida) {
+            actions.hidden = true;
+            const mensaje = data.respuesta === "Confirmada"
+              ? "Esta invitación ya fue respondida: asistencia confirmada. ¡Muchas gracias! 🤍"
+              : data.respuesta === "Rechazada"
+                ? "Esta invitación ya fue respondida. Tu respuesta quedó registrada. 🤍"
+                : "Esta invitación ya fue respondida. ¡Muchas gracias! 🤍";
+            showStatus(mensaje);
+          }
+        };
+
+        script.onerror = limpiar;
+        script.src = appsScriptUrl
+          + "?id=" + encodeURIComponent(id.toUpperCase())
+          + "&consulta=1&callback=" + callbackName
+          + "&_=" + Date.now();
+        document.head.appendChild(script);
+
+        // Si la consulta no responde, no bloqueamos una invitación pendiente.
+        setTimeout(limpiar, 10000);
+      }
+
       async function sendResponse(respuesta) {
         if (!invitacion || !id) return;
         confirmBtn.disabled = true;
@@ -1920,6 +1961,9 @@ if (iCalBtn) iCalBtn.addEventListener("click", () => {
 
       confirmBtn.addEventListener("click", () => sendResponse("Confirmada"));
       declineBtn.addEventListener("click", () => sendResponse("Rechazada"));
+
+      // Al cargar el enlace, revisa si la familia ya respondió anteriormente.
+      consultarRespuesta();
 
       function closeThanks() {
         thanksScreen.classList.remove("is-open");
