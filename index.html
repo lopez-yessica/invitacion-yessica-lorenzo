@@ -1032,6 +1032,10 @@
     }
     .rsvp-status { margin-top: 18px !important; font-family: "Montserrat", sans-serif; font-size: 13px !important; line-height: 1.6; color: var(--sage-dark) !important; }
     .rsvp-status.error { color: #9b3028 !important; }
+    .family-invite { margin: 24px auto 0; padding: 20px 16px; border: 1px solid var(--border-subtle); border-radius: 14px; background: #fffefa; }
+    .family-greeting { color: var(--sage-dark) !important; font-family: "Cormorant Garamond", Georgia, serif; font-size: 27px !important; font-weight: 600; }
+    .family-count { margin-top: 8px; color: var(--ink) !important; font-family: "Montserrat", sans-serif; font-size: 14px !important; }
+    #rsvpInvalid[hidden], #rsvpActions[hidden] { display: none; }
     .rsvp-actions button:disabled { opacity: .6; cursor: wait; }
     /* RSVP cerrado (después de la fecha límite) */
     .rsvp-card.is-closed .rsvp-actions button:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
@@ -1505,40 +1509,27 @@
       </div>
     </section>
 
-    <!-- CONFIRMACION DE INVITADOS -->
+    <!-- CONFIRMACION PERSONALIZADA DE INVITADOS -->
     <section class="section" id="confirmacion">
       <div class="content-container reveal">
         <p class="section-eyebrow">RSVP</p>
         <h2>Confirmá tu Asistencia</h2>
         <div class="flourish" aria-hidden="true">❦</div>
-
         <div class="rsvp-card">
-          <p>Nos encantaría contar con tu presencia en este día tan especial. Por favor, hacenos saber si podrás acompañarnos.</p>
-          <p class="rsvp-deadline">Ingresá tus datos y elegí una opción. Tu respuesta se registrará en nuestra lista de invitados.<br>Fecha límite para responder: 1 de agosto de 2027.</p>
-          <div class="rsvp-form-fields">
-            <div class="rsvp-field">
-              <label for="rsvpNombre">Nombre *</label>
-              <input id="rsvpNombre" name="nombre" type="text" autocomplete="given-name" maxlength="80" required placeholder="Tu nombre">
-            </div>
-            <div class="rsvp-field">
-              <label for="rsvpApellido">Apellido *</label>
-              <input id="rsvpApellido" name="apellido" type="text" autocomplete="family-name" maxlength="80" required placeholder="Tu apellido">
-            </div>
-            <div class="rsvp-field full">
-              <label for="rsvpTelefono">Teléfono (opcional)</label>
-              <input id="rsvpTelefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="Ej.: 0981 234 567">
-            </div>
+          <p>Nos encantaría contar con tu presencia en este día tan especial.</p>
+          <div id="familyInvite" class="family-invite" aria-live="polite">
+            <p class="family-greeting" id="familyGreeting"></p>
+            <p class="family-count" id="familyCount"></p>
           </div>
-          <div class="rsvp-actions">
-            <button class="primary-btn btn-gold" id="rsvpConfirmBtn" type="button">Confirmar ✓</button>
-            <button class="secondary-btn rsvp-decline" id="rsvpDeclineBtn" type="button">Rechazar ✕</button>
+          <p class="rsvp-deadline">Por favor, elegí una opción para registrar la respuesta de toda la invitación.</p>
+          <div class="rsvp-actions" id="rsvpActions">
+            <button class="primary-btn btn-gold" id="rsvpConfirmBtn" type="button">Confirmar asistencia ✓</button>
+            <button class="secondary-btn rsvp-decline" id="rsvpDeclineBtn" type="button">Rechazar invitación ✕</button>
           </div>
           <p class="rsvp-status" id="rsvpStatus" role="status" aria-live="polite"></p>
-          <p class="rsvp-remembered" id="rsvpRemembered" hidden></p>
-          <div class="rsvp-closed" id="rsvpClosed" role="status" hidden>
-            <p><strong>¡Gracias por tu interés en acompañarnos! 💚</strong></p>
-            <p>El plazo para confirmar asistencia a nuestra boda ha finalizado. Para cualquier consulta, por favor comunicate directamente con los novios.</p>
-            <p class="decline-signature">Con cariño,<strong>Yessica &amp; Lorenzo <span>♡</span></strong></p>
+          <div class="rsvp-closed" id="rsvpInvalid" role="status" hidden>
+            <p><strong>No pudimos identificar esta invitación.</strong></p>
+            <p>Por favor, verificá que hayas abierto el enlace personalizado que te enviamos.</p>
           </div>
         </div>
       </div>
@@ -1850,201 +1841,109 @@ if (iCalBtn) iCalBtn.addEventListener("click", () => {
       }
     }
 
-    // RSVP: registra la respuesta en Google Sheets sin abrir otra pestaña.
+    // RSVP PERSONALIZADO: una respuesta por familia, vinculada al ID del enlace.
     (function () {
-      const appsScriptUrl = "https://script.google.com/macros/s/AKfycby5WdIJRVzjMImQWg3sGKkahL1BlBHNV6FwU563y5Po2fekq-ZWgNJU0EGLZ5fW-3v4Ag/exec";
+      const appsScriptUrl = "https://script.google.com/macros/s/AKfycbxmOjwmaGnB0YWDIN4n99Ss7ohKPNrQBZNfPI_15NhwTZwKc7E6pi3pcqWWblWaEeepjQ/exec";
+      const invitaciones = {"FAM001":{"nombre":"Papá - mamá","personas":3},"FAM002":{"nombre":"Mama y papa, hermanos","personas":6},"FAM003":{"nombre":"Fabian","personas":2},"FAM004":{"nombre":"Tio Juan","personas":4},"FAM005":{"nombre":"Abuela Nena","personas":1},"FAM006":{"nombre":"Tio Noni","personas":4},"FAM007":{"nombre":"Alma López","personas":2},"FAM008":{"nombre":"Abuela","personas":1},"FAM009":{"nombre":"Celia López","personas":4},"FAM010":{"nombre":"Tia Graciela","personas":2},"FAM011":{"nombre":"Nelly López","personas":2},"FAM012":{"nombre":"Tia Zoila","personas":2},"FAM013":{"nombre":"Luis López","personas":4},"FAM014":{"nombre":"Tia Susi","personas":2},"FAM015":{"nombre":"Salustiana López","personas":2},"FAM016":{"nombre":"Tia Rosana","personas":2},"FAM017":{"nombre":"Anibal Q López","personas":3},"FAM018":{"nombre":"Tia Raquel","personas":3},"FAM019":{"nombre":"Victor Q","personas":2},"FAM020":{"nombre":"Tia Perla","personas":5},"FAM021":{"nombre":"luisa López","personas":1},"FAM022":{"nombre":"Tia Ursu","personas":1},"FAM023":{"nombre":"María B López","personas":2},"FAM024":{"nombre":"Tio Fabio","personas":2},"FAM025":{"nombre":"Diana B López","personas":2},"FAM026":{"nombre":"Tia Eugenia","personas":1},"FAM027":{"nombre":"Mini López","personas":2},"FAM028":{"nombre":"Abuelo","personas":1},"FAM029":{"nombre":"Tio Cristian","personas":1},"FAM030":{"nombre":"Tio Lulu","personas":1},"FAM031":{"nombre":"Madrina Cristina","personas":1},"FAM032":{"nombre":"Madrina Irma L","personas":2},"FAM033":{"nombre":"tio Christian","personas":3},"FAM034":{"nombre":"Tio Carlos","personas":3},"FAM035":{"nombre":"Abuela Ignacia","personas":1},"FAM036":{"nombre":"tía Vale","personas":2},"FAM037":{"nombre":"Mirian Jara","personas":3},"FAM038":{"nombre":"Hugo Jara","personas":2},"FAM039":{"nombre":"Mario","personas":1},"FAM040":{"nombre":"Reinaldo Jara","personas":1},"FAM041":{"nombre":"Adan","personas":1},"FAM042":{"nombre":"Teodoro Jara","personas":4},"FAM043":{"nombre":"Ariel","personas":1},"FAM044":{"nombre":"Fabiola Jara","personas":2},"FAM045":{"nombre":"Carlos Matto","personas":1},"FAM046":{"nombre":"Mario Jara","personas":3},"FAM047":{"nombre":"Carlos Peralta","personas":1},"FAM048":{"nombre":"Magda Jara","personas":3},"FAM049":{"nombre":"Alma","personas":1},"FAM050":{"nombre":"Ninfa Jara","personas":2},"FAM051":{"nombre":"Chichi","personas":1},"FAM052":{"nombre":"Tia Irene","personas":3},"FAM053":{"nombre":"Juanjo","personas":1},"FAM054":{"nombre":"Abuela Josepa","personas":2},"FAM055":{"nombre":"Monchi","personas":1},"FAM056":{"nombre":"Hermano Alcides","personas":1},"FAM057":{"nombre":"Hermano Erico","personas":2},"FAM058":{"nombre":"Montse","personas":1},"FAM059":{"nombre":"Derlis G primo","personas":1},"FAM060":{"nombre":"Majo","personas":1},"FAM061":{"nombre":"Mariela Arce","personas":2},"FAM062":{"nombre":"Arami","personas":2},"FAM063":{"nombre":"Dalila Arce","personas":1},"FAM064":{"nombre":"Mili","personas":1},"FAM065":{"nombre":"Diana Figueredo","personas":2},"FAM066":{"nombre":"Vane","personas":1},"FAM067":{"nombre":"Sandra Matto","personas":2},"FAM068":{"nombre":"Victor Pana","personas":1},"FAM069":{"nombre":"Ana Gayoso","personas":1},"FAM070":{"nombre":"Daiana","personas":2},"FAM071":{"nombre":"Liz Alvarenga","personas":1},"FAM072":{"nombre":"Omar","personas":2},"FAM073":{"nombre":"Flor Zarza","personas":1},"FAM074":{"nombre":"Cristhian","personas":2},"FAM075":{"nombre":"Leti Marinoni","personas":2},"FAM076":{"nombre":"Gabi","personas":1},"FAM077":{"nombre":"Cristhian Ahijado","personas":1},"FAM078":{"nombre":"compañeros Basa","personas":14},"FAM079":{"nombre":"Sofia ahijada","personas":2},"FAM080":{"nombre":"Eli Barrios","personas":1},"FAM081":{"nombre":"Liz Rolon","personas":1},"FAM082":{"nombre":"Emilio Candia","personas":1},"FAM083":{"nombre":"Tobias","personas":1},"FAM084":{"nombre":"Marco Ayala","personas":2},"FAM085":{"nombre":"Vidal Davalos","personas":1},"FAM086":{"nombre":"tia claudia","personas":2}};
+      const id = new URLSearchParams(location.search).get("id");
+      const invitacion = id ? invitaciones[id.toUpperCase()] : null;
+      const greeting = document.getElementById("familyGreeting");
+      const count = document.getElementById("familyCount");
+      const actions = document.getElementById("rsvpActions");
+      const invalid = document.getElementById("rsvpInvalid");
       const confirmBtn = document.getElementById("rsvpConfirmBtn");
       const declineBtn = document.getElementById("rsvpDeclineBtn");
-      const nameInput = document.getElementById("rsvpNombre");
-      const surnameInput = document.getElementById("rsvpApellido");
-      const phoneInput = document.getElementById("rsvpTelefono");
-      const statusMessage = document.getElementById("rsvpStatus");
-      const declineScreen = document.getElementById("declineScreen");
+      const status = document.getElementById("rsvpStatus");
+      const thanksScreen = document.getElementById("declineScreen");
+      const thanksTitle = document.getElementById("declineTitle");
+      const thanksParagraphs = thanksScreen.querySelectorAll(".decline-card > p");
       const backBtn = document.getElementById("declineBackBtn");
-      const rsvpCard = document.querySelector("#confirmacion .rsvp-card");
-      const closedMessage = document.getElementById("rsvpClosed");
-      const rememberedMsg = document.getElementById("rsvpRemembered");
-      const STORAGE_KEY = "boda-yl-rsvp";
       let pushed = false;
 
-      function showRemembered() {
-        let saved = null;
-        try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null"); } catch (e) { saved = null; }
-        if (!saved || !saved.nombre) return;
-        nameInput.value = nameInput.value || saved.nombre;
-        surnameInput.value = surnameInput.value || saved.apellido || "";
-        phoneInput.value = phoneInput.value || saved.telefono || "";
-        const verbo = saved.estado === "CONFIRMADO" ? "confirmaste tu asistencia 💚" : "nos avisaste que no podrás venir 🤍";
-        rememberedMsg.textContent = "Hola " + saved.nombre + ", ya " + verbo + " Si necesitás cambiar tu respuesta, podés volver a elegir una opción.";
-        rememberedMsg.hidden = false;
+      if (!invitacion) {
+        actions.hidden = true;
+        invalid.hidden = false;
+        greeting.textContent = "Invitación no encontrada";
+      } else {
+        greeting.textContent = invitacion.nombre;
+        count.textContent = "Invitación válida para " + invitacion.personas + (invitacion.personas === 1 ? " persona" : " personas");
       }
 
-      // Cierre automático: se aceptan respuestas hasta el 1/08/2027 23:59 (hora de Paraguay).
-      // Desde el 2/08/2027 en America/Asuncion el formulario queda cerrado.
-      // Apps Script vuelve a validar la fecha antes de guardar, así que esto no depende solo del navegador.
-      const RSVP_TIMEZONE = "America/Asuncion";
-      const RSVP_CLOSING_DAY = "2027-08-02";
-      // Solo para pruebas: ?fechaPrueba=2027-08-02 simula esa fecha en este navegador (no cambia la fecha real).
-      const testDate = new URLSearchParams(location.search).get("fechaPrueba");
-
-      function todayInParaguay() {
-        if (testDate && /^\d{4}-\d{2}-\d{2}$/.test(testDate)) return testDate;
-        try {
-          return new Intl.DateTimeFormat("en-CA", { timeZone: RSVP_TIMEZONE, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
-        } catch (e) {
-          // Navegadores sin soporte de zonas horarias: Paraguay usa UTC-3.
-          return new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString().slice(0, 10);
-        }
+      function showStatus(message, error) {
+        status.textContent = message;
+        status.classList.toggle("error", !!error);
       }
 
-      function isRsvpClosed() {
-        return todayInParaguay() >= RSVP_CLOSING_DAY;
-      }
-
-      function applyClosedState() {
-        rsvpCard.classList.add("is-closed");
+      async function sendResponse(respuesta) {
+        if (!invitacion || !id) return;
         confirmBtn.disabled = true;
         declineBtn.disabled = true;
-        confirmBtn.setAttribute("aria-disabled", "true");
-        declineBtn.setAttribute("aria-disabled", "true");
-        [nameInput, surnameInput, phoneInput].forEach((input) => { input.disabled = true; });
-        showStatus("");
-        closedMessage.hidden = false;
-      }
+        showStatus("Estamos enviando tu respuesta…");
+        const payload = { id: id.toUpperCase(), respuesta: respuesta };
 
-      function showStatus(message, isError = false) {
-        statusMessage.textContent = message;
-        statusMessage.classList.toggle("error", isError);
-      }
-
-      function openDecline() {
-        declineScreen.classList.add("is-open");
-        declineScreen.setAttribute("aria-hidden", "false");
-        document.body.classList.add("decline-open");
-        backBtn.focus({ preventScroll: true });
-      }
-
-      function closeDecline() {
-        declineScreen.classList.remove("is-open");
-        declineScreen.setAttribute("aria-hidden", "true");
-        document.body.classList.remove("decline-open");
-      }
-
-      function validateGuest() {
-        if (!nameInput.value.trim() || !surnameInput.value.trim()) {
-          showStatus("Por favor, completá tu nombre y apellido para registrar tu respuesta.", true);
-          (!nameInput.value.trim() ? nameInput : surnameInput).focus();
-          return false;
-        }
-        return true;
-      }
-
-      async function sendResponse(estado) {
-        if (isRsvpClosed()) {
-          applyClosedState();
-          return false;
-        }
-        if (!validateGuest()) return false;
-        confirmBtn.disabled = true;
-        declineBtn.disabled = true;
-        showStatus("Estamos registrando tu respuesta…");
-
-        const payload = {
-          // Reutiliza el mismo identificador durante esta sesión para evitar duplicados accidentales.
-          id: "INVITADO-" + nameInput.value.trim().toLowerCase() + "-" + surnameInput.value.trim().toLowerCase(),
-          nombre: nameInput.value.trim(),
-          apellido: surnameInput.value.trim(),
-          telefono: phoneInput.value.trim(),
-          estado: estado
-        };
-
-        let closedByServer = false;
         try {
-          // Apps Script recibe JSON como texto y responde JSON, así podemos verificar que la respuesta se guardó.
-          const response = await fetch(appsScriptUrl, {
+          // Apps Script acepta este POST simple. El modo no-cors evita el bloqueo CORS
+          // del navegador; el registro se verifica directamente en la hoja de cálculo.
+          await fetch(appsScriptUrl, {
             method: "POST",
+            mode: "no-cors",
             headers: { "Content-Type": "text/plain;charset=UTF-8" },
             body: JSON.stringify(payload)
           });
-          let result = null;
-          try { result = await response.json(); } catch (e) { result = null; }
 
-          if (result && result.cerrado) {
-            closedByServer = true;
-            applyClosedState();
-            return false;
+          showStatus("¡Gracias! Tu respuesta fue enviada. 🤍");
+          thanksTitle.textContent = respuesta === "Confirmada"
+            ? "¡Gracias por confirmar su asistencia!"
+            : "¡Gracias por avisarnos!";
+          if (thanksParagraphs[0]) {
+            thanksParagraphs[0].textContent = respuesta === "Confirmada"
+              ? "Nos llena de alegría saber que van a acompañarnos en este día tan especial."
+              : "Aunque en esta ocasión no puedan acompañarnos, agradecemos de corazón sus buenos deseos.";
           }
-          if (!response.ok || !result || result.ok !== true) {
-            showStatus("No pudimos confirmar que tu respuesta se haya registrado. Por favor, intentá nuevamente en unos minutos o comunicate con los novios.", true);
-            return false;
-          }
-
-          try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ nombre: payload.nombre, apellido: payload.apellido, telefono: payload.telefono, estado: estado })); } catch (e) {}
-          showRemembered();
-
-          // Mostrar una pantalla de agradecimiento dentro de la invitación para ambas respuestas.
-          const title = document.getElementById("declineTitle");
-          const paragraphs = declineScreen.querySelectorAll(".decline-card > p");
-          if (estado === "CONFIRMADO") {
-            title.textContent = "¡Gracias por confirmar tu asistencia!";
-            if (paragraphs[0]) paragraphs[0].textContent = "Nos llena de alegría saber que vas a acompañarnos en este día tan especial.";
-            if (paragraphs[1]) paragraphs[1].textContent = "¡Estamos contando los días para celebrar juntos!";
-            showStatus("¡Muchas gracias! Tu respuesta fue enviada.");
-            if (typeof triggerPetalsCelebration === "function") triggerPetalsCelebration();
-          } else {
-            title.textContent = "¡Gracias por avisarnos!";
-            if (paragraphs[0]) paragraphs[0].textContent = "Aunque en esta ocasión no puedas acompañarnos, agradecemos de corazón tus buenos deseos y el cariño hacia nosotros.";
-            if (paragraphs[1]) paragraphs[1].textContent = "Te mandamos un abrazo enorme y gracias por tomarte el tiempo de responder.";
-            showStatus("Gracias por responder.");
+          if (thanksParagraphs[1]) {
+            thanksParagraphs[1].textContent = "¡Gracias por tomarse el tiempo de responder!";
           }
           if (location.hash !== "#gracias") {
             history.pushState(null, "", "#gracias");
             pushed = true;
           }
-          openDecline();
-          return true;
+          thanksScreen.classList.add("is-open");
+          thanksScreen.setAttribute("aria-hidden", "false");
+          document.body.classList.add("decline-open");
+          if (respuesta === "Confirmada" && typeof triggerPetalsCelebration === "function") triggerPetalsCelebration();
         } catch (error) {
           showStatus("No pudimos enviar la respuesta. Revisá tu conexión e intentá nuevamente.", true);
-          return false;
-        } finally {
-          if (!closedByServer && !isRsvpClosed()) {
-            confirmBtn.disabled = false;
-            declineBtn.disabled = false;
-          }
+          confirmBtn.disabled = false;
+          declineBtn.disabled = false;
         }
       }
 
-      confirmBtn.addEventListener("click", () => {
-        sendResponse("CONFIRMADO");
-      });
+      confirmBtn.addEventListener("click", () => sendResponse("Confirmada"));
+      declineBtn.addEventListener("click", () => sendResponse("Rechazada"));
 
-      declineBtn.addEventListener("click", () => {
-        sendResponse("RECHAZADO");
-      });
-
+      function closeThanks() {
+        thanksScreen.classList.remove("is-open");
+        thanksScreen.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("decline-open");
+      }
       backBtn.addEventListener("click", () => {
         if (pushed) {
           pushed = false;
           history.back();
         } else {
           if (location.hash === "#gracias") history.replaceState(null, "", location.pathname + location.search);
-          closeDecline();
+          closeThanks();
         }
-        declineBtn.focus({ preventScroll: true });
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && declineScreen.classList.contains("is-open")) backBtn.click();
       });
       window.addEventListener("popstate", () => {
         pushed = false;
-        if (location.hash === "#gracias") openDecline(); else closeDecline();
+        if (location.hash !== "#gracias") closeThanks();
       });
-      window.addEventListener("hashchange", () => {
-        if (location.hash === "#gracias") openDecline(); else closeDecline();
-      });
-      if (location.hash === "#gracias") openDecline(); else closeDecline();
-      if (isRsvpClosed()) applyClosedState(); else showRemembered();
+      if (location.hash === "#gracias") {
+        thanksScreen.classList.add("is-open");
+        thanksScreen.setAttribute("aria-hidden", "false");
+        document.body.classList.add("decline-open");
+      }
     })();
 
     // --- 7. APARICIÓN AL HACER SCROLL + NAVEGACIÓN RÁPIDA ---
