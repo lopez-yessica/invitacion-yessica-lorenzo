@@ -1869,9 +1869,11 @@ if (iCalBtn) iCalBtn.addEventListener("click", () => {
     // RSVP PERSONALIZADO: una respuesta por familia, vinculada al ID del enlace.
     (function () {
       const appsScriptUrl = "https://script.google.com/macros/s/AKfycbxmOjwmaGnB0YWDIN4n99Ss7ohKPNrQBZNfPI_15NhwTZwKc7E6pi3pcqWWblWaEeepjQ/exec";
-      const invitaciones = {"FAM001":{"nombre":"Papá - mamá","personas":3},"FAM002":{"nombre":"Mama y papa, hermanos","personas":6},"FAM003":{"nombre":"Fabian","personas":2},"FAM004":{"nombre":"Tio Juan","personas":4},"FAM005":{"nombre":"Abuela Nena","personas":1},"FAM006":{"nombre":"Tio Noni","personas":4},"FAM007":{"nombre":"Alma López","personas":2},"FAM008":{"nombre":"Abuela","personas":1},"FAM009":{"nombre":"Celia López","personas":4},"FAM010":{"nombre":"Tia Graciela","personas":2},"FAM011":{"nombre":"Nelly López","personas":2},"FAM012":{"nombre":"Tia Zoila","personas":2},"FAM013":{"nombre":"Luis López","personas":4},"FAM014":{"nombre":"Tia Susi","personas":2},"FAM015":{"nombre":"Salustiana López","personas":2},"FAM016":{"nombre":"Tia Rosana","personas":2},"FAM017":{"nombre":"Anibal Q López","personas":3},"FAM018":{"nombre":"Tia Raquel","personas":3},"FAM019":{"nombre":"Victor Q","personas":2},"FAM020":{"nombre":"Tia Perla","personas":5},"FAM021":{"nombre":"luisa López","personas":1},"FAM022":{"nombre":"Tia Ursu","personas":1},"FAM023":{"nombre":"María B López","personas":2},"FAM024":{"nombre":"Tio Fabio","personas":2},"FAM025":{"nombre":"Diana B López","personas":2},"FAM026":{"nombre":"Tia Eugenia","personas":1},"FAM027":{"nombre":"Mini López","personas":2},"FAM028":{"nombre":"Abuelo","personas":1},"FAM029":{"nombre":"Tio Cristian","personas":1},"FAM030":{"nombre":"Tio Lulu","personas":1},"FAM031":{"nombre":"Madrina Cristina","personas":1},"FAM032":{"nombre":"Madrina Irma L","personas":2},"FAM033":{"nombre":"tio Christian","personas":3},"FAM034":{"nombre":"Tio Carlos","personas":3},"FAM035":{"nombre":"Abuela Ignacia","personas":1},"FAM036":{"nombre":"tía Vale","personas":2},"FAM037":{"nombre":"Mirian Jara","personas":3},"FAM038":{"nombre":"Hugo Jara","personas":2},"FAM039":{"nombre":"Mario","personas":1},"FAM040":{"nombre":"Reinaldo Jara","personas":1},"FAM041":{"nombre":"Adan","personas":1},"FAM042":{"nombre":"Teodoro Jara","personas":4},"FAM043":{"nombre":"Ariel","personas":1},"FAM044":{"nombre":"Fabiola Jara","personas":2},"FAM045":{"nombre":"Carlos Matto","personas":1},"FAM046":{"nombre":"Mario Jara","personas":3},"FAM047":{"nombre":"Carlos Peralta","personas":1},"FAM048":{"nombre":"Magda Jara","personas":3},"FAM049":{"nombre":"Alma","personas":1},"FAM050":{"nombre":"Ninfa Jara","personas":2},"FAM051":{"nombre":"Chichi","personas":1},"FAM052":{"nombre":"Tia Irene","personas":3},"FAM053":{"nombre":"Juanjo","personas":1},"FAM054":{"nombre":"Abuela Josepa","personas":2},"FAM055":{"nombre":"Monchi","personas":1},"FAM056":{"nombre":"Hermano Alcides","personas":1},"FAM057":{"nombre":"Hermano Erico","personas":2},"FAM058":{"nombre":"Montse","personas":1},"FAM059":{"nombre":"Derlis G primo","personas":1},"FAM060":{"nombre":"Majo","personas":1},"FAM061":{"nombre":"Mariela Arce","personas":2},"FAM062":{"nombre":"Arami","personas":2},"FAM063":{"nombre":"Dalila Arce","personas":1},"FAM064":{"nombre":"Mili","personas":1},"FAM065":{"nombre":"Diana Figueredo","personas":2},"FAM066":{"nombre":"Vane","personas":1},"FAM067":{"nombre":"Sandra Matto","personas":2},"FAM068":{"nombre":"Victor Pana","personas":1},"FAM069":{"nombre":"Ana Gayoso","personas":1},"FAM070":{"nombre":"Daiana","personas":2},"FAM071":{"nombre":"Liz Alvarenga","personas":1},"FAM072":{"nombre":"Omar","personas":2},"FAM073":{"nombre":"Flor Zarza","personas":1},"FAM074":{"nombre":"Cristhian","personas":2},"FAM075":{"nombre":"Leti Marinoni","personas":2},"FAM076":{"nombre":"Gabi","personas":1},"FAM077":{"nombre":"Cristhian Ahijado","personas":1},"FAM078":{"nombre":"compañeros Basa","personas":14},"FAM079":{"nombre":"Sofia ahijada","personas":2},"FAM080":{"nombre":"Eli Barrios","personas":1},"FAM081":{"nombre":"Liz Rolon","personas":1},"FAM082":{"nombre":"Emilio Candia","personas":1},"FAM083":{"nombre":"Tobias","personas":1},"FAM084":{"nombre":"Marco Ayala","personas":2},"FAM085":{"nombre":"Vidal Davalos","personas":1},"FAM086":{"nombre":"tia claudia","personas":2}};
+      // Los datos de cada familia se consultan directamente en Google Sheets.
+      // Así, los cambios en las columnas "Invitación" y "Personas autorizadas"
+      // se reflejan sin modificar este archivo.
+      let invitacion = null;
       const id = new URLSearchParams(location.search).get("id");
-      const invitacion = id ? invitaciones[id.toUpperCase()] : null;
       const greeting = document.getElementById("familyGreeting");
       const count = document.getElementById("familyCount");
       const actions = document.getElementById("rsvpActions");
@@ -1885,14 +1887,11 @@ if (iCalBtn) iCalBtn.addEventListener("click", () => {
       const backBtn = document.getElementById("declineBackBtn");
       let pushed = false;
 
-      if (!invitacion) {
-        actions.hidden = true;
+      actions.hidden = true;
+
+      if (!id) {
         invalid.hidden = false;
         greeting.textContent = "Invitación no encontrada";
-      } else {
-        greeting.textContent = invitacion.nombre;
-        count.textContent = "Invitación válida para " + invitacion.personas + (invitacion.personas === 1 ? " persona" : " personas");
-
       }
 
       function showStatus(message, error) {
@@ -1903,7 +1902,7 @@ if (iCalBtn) iCalBtn.addEventListener("click", () => {
       // Consulta en Google Sheets si esta familia ya respondió.
       // Si ya existe una respuesta, ocultamos los botones al abrir o reenviar el enlace.
       function consultarRespuesta() {
-        if (!invitacion || !id) return;
+        if (!id) return;
 
         const callbackName = "rsvpConsultaCallback";
         const script = document.createElement("script");
@@ -1919,7 +1918,24 @@ if (iCalBtn) iCalBtn.addEventListener("click", () => {
         window[callbackName] = (data) => {
           limpiar();
 
-          if (data && data.ok && data.yaRespondida) {
+          if (!data || !data.ok || !data.nombre || !data.personas) {
+            actions.hidden = true;
+            invalid.hidden = false;
+            greeting.textContent = "Invitación no encontrada";
+            showStatus("No pudimos cargar los datos de esta invitación. Verificá el enlace o intentá nuevamente.", true);
+            return;
+          }
+
+          invitacion = {
+            nombre: String(data.nombre),
+            personas: Number(data.personas)
+          };
+
+          greeting.textContent = invitacion.nombre;
+          count.textContent = "Invitación válida para " + invitacion.personas
+            + (invitacion.personas === 1 ? " persona" : " personas");
+
+          if (data.yaRespondida) {
             actions.hidden = true;
             const mensaje = data.respuesta === "Confirmada"
               ? "Esta invitación ya fue respondida: asistencia confirmada. ¡Muchas gracias! 🤍"
@@ -1927,18 +1943,34 @@ if (iCalBtn) iCalBtn.addEventListener("click", () => {
                 ? "Esta invitación ya fue respondida. Tu respuesta quedó registrada. 🤍"
                 : "Esta invitación ya fue respondida. ¡Muchas gracias! 🤍";
             showStatus(mensaje);
+          } else {
+            actions.hidden = false;
           }
         };
 
-        script.onerror = limpiar;
+        script.onerror = () => {
+          limpiar();
+          actions.hidden = true;
+          invalid.hidden = false;
+          greeting.textContent = "No pudimos cargar la invitación";
+          showStatus("No se pudieron consultar los datos. Revisá tu conexión e intentá nuevamente.", true);
+        };
+
         script.src = appsScriptUrl
           + "?id=" + encodeURIComponent(id.toUpperCase())
           + "&consulta=1&callback=" + callbackName
           + "&_=" + Date.now();
         document.head.appendChild(script);
 
-        // Si la consulta no responde, no bloqueamos una invitación pendiente.
-        setTimeout(limpiar, 10000);
+        setTimeout(() => {
+          if (!terminado) {
+            limpiar();
+            actions.hidden = true;
+            invalid.hidden = false;
+            greeting.textContent = "No pudimos cargar la invitación";
+            showStatus("La consulta está tardando demasiado. Volvé a cargar la página.", true);
+          }
+        }, 10000);
       }
 
       async function sendResponse(respuesta) {
