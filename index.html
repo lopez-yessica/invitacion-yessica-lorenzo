@@ -1874,9 +1874,6 @@ if (iCalBtn) iCalBtn.addEventListener("click", () => {
       const invitacion = id ? invitaciones[id.toUpperCase()] : null;
       const greeting = document.getElementById("familyGreeting");
       const count = document.getElementById("familyCount");
-      const heroFamilyInvite = document.getElementById("heroFamilyInvite");
-      const heroFamilyName = document.getElementById("heroFamilyName");
-      const heroFamilyCount = document.getElementById("heroFamilyCount");
       const actions = document.getElementById("rsvpActions");
       const invalid = document.getElementById("rsvpInvalid");
       const confirmBtn = document.getElementById("rsvpConfirmBtn");
@@ -1896,11 +1893,6 @@ if (iCalBtn) iCalBtn.addEventListener("click", () => {
         greeting.textContent = invitacion.nombre;
         count.textContent = "Invitación válida para " + invitacion.personas + (invitacion.personas === 1 ? " persona" : " personas");
 
-        // Mostrar también el destinatario y los lugares al comienzo de la invitación.
-        heroFamilyInvite.hidden = false;
-        heroFamilyName.textContent = invitacion.nombre;
-        heroFamilyCount.textContent = "Invitación válida para " + invitacion.personas
-          + (invitacion.personas === 1 ? " persona" : " personas");
       }
 
       function showStatus(message, error) {
